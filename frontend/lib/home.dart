@@ -15,7 +15,8 @@ class home extends StatelessWidget {
         title: 'homepage',
         theme: ThemeData(
           useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent)
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
+          
         ),
         home: HomePage(),
       ),
@@ -42,12 +43,23 @@ class HomePageState extends State<HomePage>{
       return LayoutBuilder(builder: (context,constraints){
         return Scaffold(
           appBar: AppBar(
-            title: const Text('SlugSwole'),
+            backgroundColor: Colors.blue, 
+            title: Text("SlugSwole", style: TextStyle(fontWeight:FontWeight.bold,fontSize: 50,)),
+            centerTitle: true,
           ),
-
+          bottomNavigationBar: BottomNavigationBar(
+            items: const[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.bar_chart_outlined),
+              label: 'Home'
+              ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.line_weight),
+              label: "Splits"
+              )
+            ],
+          ),
         );
-          
-
       }
       );
     
