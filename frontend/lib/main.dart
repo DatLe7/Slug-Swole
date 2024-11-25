@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'sign_up.dart';
 
 void main() {
   runApp(MyApp());
@@ -19,14 +19,44 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
         ),
-        home: MyLoginPage(),
+        home: MyHomePage(),
       ),
     );
   }
 }
 
 class MyAppState extends ChangeNotifier {
+  var selectedIndex = 0;
 
+  void newState(int index){
+    selectedIndex = index;
+    notifyListeners();
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  
+  @override
+  Widget build(BuildContext context) {
+    var appState = context.watch<MyAppState>();
+    Widget page;
+    switch (appState.selectedIndex) {
+      case 0:
+        page = MyLoginPage();
+      case 1:
+        page = SignUpPage();
+      default:
+        throw UnimplementedError("no widget for $appState.selectedIndex");
+    }
+    return page;
+  }
 }
 
 class MyLoginPage extends StatefulWidget {
@@ -65,6 +95,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    var appState = context.watch<MyAppState>();
 
     return Scaffold(
       // appBar: AppBar(
@@ -74,7 +105,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
       //   title: Text(
       //     "Login",
       //     textAlign: TextAlign.center,
-      //     style: Theme.of(context).textTheme.titleLarge,
+      //     style: theme.textTheme.titleLarge,
       //   ),
       // ),
       backgroundColor: theme.primaryColorDark,
@@ -173,7 +204,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
                       ),
                       ElevatedButton(
                         onPressed: (){
-                          print("sign up");
+                          appState.newState(1);
                         },
                         child: Text("Sign Up"),
                       ),
