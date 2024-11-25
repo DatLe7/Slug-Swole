@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'home.dart';
 
 
 void main() {
@@ -157,6 +158,10 @@ class _MyLoginPageState extends State<MyLoginPage> {
                       ElevatedButton(
                         onPressed: () {
                           print("${login} and ${pass}");
+                          Navigator.push(context, MaterialPageRoute(builder: (context) {
+                            return const home();
+                        }));
+                          
                         },
                         child: Text(
                           "Login",
