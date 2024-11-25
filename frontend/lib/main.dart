@@ -188,7 +188,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          print("${login} and ${pass}");
+                          print("$login and $pass");
                         },
                         child: Text(
                           "Login",

@@ -154,7 +154,7 @@ class _SignUpPage extends State<SignUpPage> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        print("\nUser: ${signUpUser} \nEmail: ${signUpEmail} \nPass: ${signUpPass}");
+                        print("\nUser: $signUpUser \nEmail: $signUpEmail \nPass: $signUpPass");
                       },
                       child: Text("Submit"),
                     ),
