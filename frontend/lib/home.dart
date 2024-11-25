@@ -25,6 +25,7 @@ class home extends StatelessWidget {
 }
 
 class HomePage extends StatefulWidget{
+  @override
   State<HomePage> createState() => HomePageState();
 }
 
@@ -50,10 +51,23 @@ class HomePageState extends State<HomePage>{
       return LayoutBuilder(builder: (context,constraints){
         return Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.blue, 
-            title: Text("SlugSwole", style: TextStyle(fontWeight:FontWeight.bold,fontSize: 50,)),
+            leading: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Image.asset("assets/fitSlug.png"),
+            ),
+            toolbarHeight: 75,
+            backgroundColor: Colors.black87, 
+            title: RichText(text: TextSpan(
+              text:"SLUG", style: TextStyle(fontWeight:FontWeight.bold,fontSize: 50,color: Colors.yellow),
+              children:[
+                 TextSpan(text: "SWOLE", style: TextStyle(color: Colors.blue)),
+              ]
+
+            )),
             centerTitle: true,
+            
           ),
+          
           body:page,
           
           bottomNavigationBar: BottomNavigationBar(
@@ -83,10 +97,36 @@ class DataPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text("Page 1")
-      ],
+
+
+    return Scaffold(
+      backgroundColor: Colors.black54,
+      body:Column(
+        children: [
+          SizedBox(height: 20,),
+          Center(
+            child: Container(
+              padding: EdgeInsets.all(10),
+              width: 1000,
+              decoration: BoxDecoration(
+              color: Colors.white, 
+              borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(
+                children: [
+                  Text("Placeholder Date"),
+                  Text("Capacity: "),
+                  Text("xxx / 120"),
+                  
+                ],
+              ),
+            ),
+          ),
+          SizedBox(height: 20,)
+        ],
+      ),
+      
+
     );
   }
 }
@@ -101,10 +141,17 @@ class SplitsPage extends StatefulWidget {
 class _SplitsPageState extends State<SplitsPage> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text("Page 2")
-      ],
+    return Scaffold(
+      backgroundColor: Colors.black54,
+      body:Center(
+        child: Column(
+          children: [
+            Text("Page 2"),
+            
+          ],
+        ),
+      ),
+
     );
   }
 }
