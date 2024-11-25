@@ -53,6 +53,8 @@ class _MyHomePageState extends State<MyHomePage> {
         page = MyLoginPage();
       case 1:
         page = SignUpPage();
+      case 2:
+        page = HomePage();
       default:
         throw UnimplementedError("no widget for $appState.selectedIndex");
     }
@@ -189,6 +191,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
                       ElevatedButton(
                         onPressed: () {
                           print("$login and $pass");
+                          appState.newState(2);
                         },
                         child: Text(
                           "Login",

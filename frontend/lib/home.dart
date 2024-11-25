@@ -30,7 +30,14 @@ class HomePage extends StatefulWidget{
 
 class HomePageState extends State<HomePage>{
   var selectedIndex = 0;
+
+  @override
   Widget build(BuildContext context){
+      void newState(int index){
+        setState((){
+          selectedIndex = index;
+        });
+      }
       Widget page;
       switch (selectedIndex){
         case 0:
@@ -47,17 +54,22 @@ class HomePageState extends State<HomePage>{
             title: Text("SlugSwole", style: TextStyle(fontWeight:FontWeight.bold,fontSize: 50,)),
             centerTitle: true,
           ),
+          body:page,
+          
           bottomNavigationBar: BottomNavigationBar(
             items: const[
             BottomNavigationBarItem(
               icon: Icon(Icons.bar_chart_outlined),
-              label: 'Home'
+              label: 'Home',
               ),
             BottomNavigationBarItem(
               icon: Icon(Icons.line_weight),
               label: "Splits"
+
               )
             ],
+            currentIndex: selectedIndex,
+            onTap: newState,
           ),
         );
       }
@@ -71,7 +83,11 @@ class DataPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Column(
+      children: [
+        Text("Page 1")
+      ],
+    );
   }
 }
 //Page for recording splits
@@ -85,6 +101,10 @@ class SplitsPage extends StatefulWidget {
 class _SplitsPageState extends State<SplitsPage> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Column(
+      children: [
+        Text("Page 2")
+      ],
+    );
   }
 }
