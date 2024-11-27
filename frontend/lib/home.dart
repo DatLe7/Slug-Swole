@@ -1,21 +1,22 @@
-import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:frontend/main.dart';
 import 'package:provider/provider.dart';
 
-class home extends StatelessWidget {
-  const home({super.key});
+import 'package:frontend/main.dart';
+import 'package:frontend/data_tracking.dart';
+import 'package:frontend/splits.dart';
 
+
+class HomeBuilder extends StatelessWidget {
+  const HomeBuilder({super.key});
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (BuildContext context) => MyAppState(),
       child: MaterialApp(
-        title: 'homepage',
+        title: 'Home',
         theme: ThemeData(
           useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
+          colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(221, 36, 34, 34)),
           
         ),
         home: HomePage(),
@@ -34,6 +35,7 @@ class HomePageState extends State<HomePage>{
 
   @override
   Widget build(BuildContext context){
+      final theme = Theme.of(context);
       void newState(int index){
         setState((){
           selectedIndex = index;
@@ -56,7 +58,7 @@ class HomePageState extends State<HomePage>{
               child: Image.asset("assets/fitSlug.png"),
             ),
             toolbarHeight: 75,
-            backgroundColor: Colors.black87, 
+            backgroundColor: Theme.of(context).colorScheme.primary,
             title: RichText(text: TextSpan(
               text:"SLUG", style: TextStyle(fontWeight:FontWeight.bold,fontSize: 50,color: Colors.yellow),
               children:[
@@ -77,7 +79,7 @@ class HomePageState extends State<HomePage>{
               label: 'Home',
               ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.line_weight),
+              icon: Icon(Icons.fitness_center),
               label: "Splits"
 
               )
@@ -91,67 +93,4 @@ class HomePageState extends State<HomePage>{
     
   } 
 }
-//Page for graphs and capacity tracking
-class DataPage extends StatelessWidget {
-  const DataPage({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-
-
-    return Scaffold(
-      backgroundColor: Colors.black54,
-      body:Column(
-        children: [
-          SizedBox(height: 20,),
-          Center(
-            child: Container(
-              padding: EdgeInsets.all(10),
-              width: 1000,
-              decoration: BoxDecoration(
-              color: Colors.white, 
-              borderRadius: BorderRadius.circular(10),
-              ),
-              child: Column(
-                children: [
-                  Text("Placeholder Date"),
-                  Text("Capacity: "),
-                  Text("xxx / 120"),
-                  
-                ],
-              ),
-            ),
-          ),
-          SizedBox(height: 20,)
-        ],
-      ),
-      
-
-    );
-  }
-}
-//Page for recording splits
-class SplitsPage extends StatefulWidget {
-  const SplitsPage({super.key});
-
-  @override
-  State<SplitsPage> createState() => _SplitsPageState();
-}
-
-class _SplitsPageState extends State<SplitsPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black54,
-      body:Center(
-        child: Column(
-          children: [
-            Text("Page 2"),
-            
-          ],
-        ),
-      ),
-
-    );
-  }
-}

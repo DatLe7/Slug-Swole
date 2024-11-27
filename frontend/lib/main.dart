@@ -54,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
       case 1:
         page = SignUpPage();
       case 2:
-        page = HomePage();
+        page = HomeBuilder();
       default:
         throw UnimplementedError("no widget for $appState.selectedIndex");
     }
