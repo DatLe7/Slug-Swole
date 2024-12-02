@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'counter.dart';
 import 'package:intl/intl.dart';
-
+import 'dart:math';
 
 //Page for graphs and capacity tracking
 class DataPage extends StatelessWidget {
@@ -15,6 +15,8 @@ class DataPage extends StatelessWidget {
     final theme = Theme.of(context);
     final now = DateTime.now();
     String formattedDate = DateFormat.yMMMEd().format(now);
+
+    final List<FlSpot> dummyData = List.generate(8, (index) { return FlSpot(index.toDouble(), (Random().nextDouble()*120)); });
 
     return Scaffold(
       backgroundColor: theme.colorScheme.primary,
