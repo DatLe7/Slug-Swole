@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'counter.dart';
 
 
 //Page for graphs and capacity tracking
 class DataPage extends StatelessWidget {
   const DataPage({super.key});
-
+  
   @override
   Widget build(BuildContext context) {
-    
+    var capacity = getCounter(); 
+    final theme = Theme.of(context);
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.secondary,
+      backgroundColor: theme.colorScheme.primary,
       body:Column(
         children: [
           SizedBox(height: 20,),
@@ -26,7 +28,7 @@ class DataPage extends StatelessWidget {
                 children: [
                   Text("Placeholder Date"),
                   Text("Capacity: "),
-                  Text("xxx / 120"),
+                  Text("$capacity / 120"),
                 ],
               ),
             ),
