@@ -57,7 +57,7 @@ class HomePageState extends State<HomePage>{
               padding: const EdgeInsets.all(10.0),
               child: Image.asset("assets/fitSlug.png"),
             ),
-            toolbarHeight: 75,
+            toolbarHeight: MediaQuery.sizeOf(context).height * 0.075,
             backgroundColor: Theme.of(context).colorScheme.primary,
             title: RichText(text: TextSpan(
               text:"SLUG", style: TextStyle(fontWeight:FontWeight.bold,fontSize: 50,color: Colors.yellow),

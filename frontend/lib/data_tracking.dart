@@ -22,7 +22,8 @@ class DataPage extends StatelessWidget {
           Center(
             child: Container(
               padding: EdgeInsets.all(10),
-              width: 1000,
+              width: MediaQuery.sizeOf(context).width * 0.4,
+              height: MediaQuery.sizeOf(context).height * 0.12,
               decoration: BoxDecoration(
               color: Colors.white, 
               borderRadius: BorderRadius.circular(10),
@@ -38,8 +39,8 @@ class DataPage extends StatelessWidget {
           ),
           SizedBox(height: 20,),
           Container(
-            height: 400,
-            width: 600,
+            width: MediaQuery.sizeOf(context).width * 0.4,
+            height: MediaQuery.sizeOf(context).height * 0.6,
             padding: EdgeInsets.all(30),
             decoration: BoxDecoration(
               color: Colors.white, 

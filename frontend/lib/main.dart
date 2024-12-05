@@ -127,6 +127,8 @@ class _MyLoginPageState extends State<MyLoginPage> {
                 ),
                 SizedBox(height: 30),
                 Container(
+                  height: MediaQuery.sizeOf(context).height * 0.6,
+                  width: MediaQuery.sizeOf(context).width * 0.4,
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     color: theme.canvasColor,
