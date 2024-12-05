@@ -1,21 +1,25 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+
+import 'counter.dart';
 import 'package:intl/intl.dart';
 import 'dart:math';
 
 //Page for graphs and capacity tracking
 class DataPage extends StatelessWidget {
   const DataPage({super.key});
-
+  
   @override
   Widget build(BuildContext context) {
+    var capacity = getCounter(); 
+    final theme = Theme.of(context);
     final now = DateTime.now();
     String formattedDate = DateFormat.yMMMEd().format(now);
+
     final List<FlSpot> dummyData = List.generate(8, (index) { return FlSpot(index.toDouble(), (Random().nextDouble()*120)); });
-    double current = dummyData[dummyData.length - 1].y;
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.secondary,
+      backgroundColor: theme.colorScheme.primary,
       body:Column(
         children: [
           SizedBox(height: 20,),
@@ -32,7 +36,7 @@ class DataPage extends StatelessWidget {
                 children: [
                   Text(formattedDate),
                   Text("Capacity: "),
-                  Text("${current.toInt()} / 120"),
+                  Text("$capacity / 120"),
                 ],
               ),
             ),

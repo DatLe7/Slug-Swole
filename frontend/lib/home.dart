@@ -4,26 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:frontend/main.dart';
 import 'package:frontend/data_tracking.dart';
 import 'package:frontend/splits.dart';
-
-
-class HomeBuilder extends StatelessWidget {
-  const HomeBuilder({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (BuildContext context) => MyAppState(),
-      child: MaterialApp(
-        title: 'Home',
-        theme: ThemeData(
-          useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(221, 36, 34, 34)),
-          
-        ),
-        home: HomePage(),
-      ),
-    );
-  }
-}
+import 'package:frontend/counter.dart';
 
 class HomePage extends StatefulWidget{
   @override
@@ -31,7 +12,7 @@ class HomePage extends StatefulWidget{
 }
 
 class HomePageState extends State<HomePage>{
-  var selectedIndex = 0;
+  var selectedIndex = 0; 
 
   @override
   Widget build(BuildContext context){
@@ -47,12 +28,17 @@ class HomePageState extends State<HomePage>{
           page = DataPage();
         case 1:
           page = SplitsPage();
+        case 2:
+          page = Counter();
         default:
           throw UnimplementedError('no widget for $selectedIndex');
+          
       }
       return LayoutBuilder(builder: (context,constraints){
         return Scaffold(
+          
           appBar: AppBar(
+            
             leading: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Image.asset("assets/fitSlug.png"),
@@ -63,6 +49,7 @@ class HomePageState extends State<HomePage>{
               text:"SLUG", style: TextStyle(fontWeight:FontWeight.bold,fontSize: 50,color: Colors.yellow),
               children:[
                  TextSpan(text: "SWOLE", style: TextStyle(color: Colors.blue)),
+
               ]
 
             )),
@@ -80,9 +67,12 @@ class HomePageState extends State<HomePage>{
               ),
             BottomNavigationBarItem(
               icon: Icon(Icons.fitness_center),
-              label: "Splits"
-
-              )
+              label: "Splits",
+              ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.shield_outlined),
+              label: "counter",
+              ),
             ],
             currentIndex: selectedIndex,
             onTap: newState,

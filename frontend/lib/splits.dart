@@ -11,8 +11,10 @@ class SplitsPage extends StatefulWidget {
 class _SplitsPageState extends State<SplitsPage> {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
-      backgroundColor: Colors.black54,
+      backgroundColor: theme.primaryColor,
       body:Center(
         child: Column(
           children: [
