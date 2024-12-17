@@ -7,8 +7,24 @@ import 'dart:math';
 
 //Page for graphs and capacity tracking
 class DataPage extends StatelessWidget {
-  const DataPage({super.key});
+  final List<FlSpot> dummyData = List.generate(8, (index) { return FlSpot(index.toDouble(), (Random().nextDouble()*120)); });
+  DataPage({super.key});
+  String howManyPeople(capacity){
+    if(capacity == 120){
+      return "Full";
+    }
+    else if(capacity > 100){
+      return "Very Busy";
+    }
+    else if(capacity > 60){
+      return "Busy";
+    }
+    else{
+      return "Not Busy";
+    } 
+  }
   
+
   @override
   Widget build(BuildContext context) {
     var capacity = getCounter(); 
@@ -16,7 +32,7 @@ class DataPage extends StatelessWidget {
     final now = DateTime.now();
     String formattedDate = DateFormat.yMMMEd().format(now);
 
-    final List<FlSpot> dummyData = List.generate(8, (index) { return FlSpot(index.toDouble(), (Random().nextDouble()*120)); });
+    
 
     return Scaffold(
       backgroundColor: theme.colorScheme.primary,
@@ -35,7 +51,7 @@ class DataPage extends StatelessWidget {
               child: Column(
                 children: [
                   Text(formattedDate),
-                  Text("Capacity: "),
+                  Text("Capacity: ${howManyPeople(capacity)}"),
                   Text("$capacity / 120"),
                 ],
               ),

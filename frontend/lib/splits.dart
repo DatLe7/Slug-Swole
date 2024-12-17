@@ -11,7 +11,7 @@ class SplitsPage extends StatefulWidget {
 }
 
 class _SplitsPageState extends State<SplitsPage> {
-  List dummySplits = List.generate(20, (index) => {"name":"Split $index", "target":"TEMP","exercises":[],"likes":Random().nextInt(1500),});
+  List dummySplits = List.generate(20, (index) => {"name":"Split $index","author":"TEMP", "target":"TEMP","exercises":[],"likes":Random().nextInt(1500),});
   @override
 
   Widget build(BuildContext context) {
@@ -22,39 +22,47 @@ class _SplitsPageState extends State<SplitsPage> {
       body: ListView.builder(
         itemCount: dummySplits.length,
         itemBuilder: (BuildContext context,int index){ 
-          return Center(
-            child: GestureDetector(
-              onTap: (){
-                print('Tapped on item $index');
-              },
-              child:Column(
-                children: [
-                  SizedBox(height:20),
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    width: MediaQuery.sizeOf(context).width * 0.4,
-                    decoration: BoxDecoration(
-                    color: Colors.white, 
-                    borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Column(
-                      children: [
+          return GestureDetector(
+            onTap: (){
+              print('Tapped on item $index');
+            },
+            child:Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height:20),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  width: MediaQuery.sizeOf(context).width * 0.4,
+                  decoration: BoxDecoration(
+                  color: Colors.white, 
+                  borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
                         Text("Name: ${dummySplits[index]["name"]}"),
+                        Spacer(),
+                        Text("Author: ${dummySplits[index]["author"]}"),
+                        Spacer(),
                         Text("Target: ${dummySplits[index]["target"]}"),
+                        ],
+                      ),
+                      Row(children: [
                         Text("Likes: ${dummySplits[index]["likes"].toString()}"),
                         LikeButton(
                           onTap: (bool isLiked) async{
                           return !isLiked;
                           },
                         )
-                      ],
-                    )
-                              
-                  ),
-
-                ],
-              )
-            ),
+                      ])
+                    ],
+                  )
+                            
+                ),
+          
+              ],
+            )
           );
       }),
 
