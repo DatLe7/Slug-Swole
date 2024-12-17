@@ -11,17 +11,25 @@ class SplitsPage extends StatefulWidget {
 }
 
 class _SplitsPageState extends State<SplitsPage> {
-  List dummySplits = List.generate(20, (index) => {"name":"Split $index","author":"TEMP", "target":"TEMP","exercises":[],"likes":Random().nextInt(1500),});
+  // Currently runs off of dummy data, can probable generate a list from FireStore later
+  List dummySplits = List.generate(20, (index) => {"name":"Split $index","author":"TEMP", "target":"TEMP","exercises":[],"likes":Random().nextInt(1500), "liked":false});
   @override
 
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
+    
     return Scaffold(
       backgroundColor: theme.primaryColor,
+      appBar: AppBar(
+        //Have some sort of filter inside of this title here
+        title: Text("there should be some way to sort and filter up here"),
+        centerTitle: true,
+      ),
       body: ListView.builder(
+        // Dummy Data Used
         itemCount: dummySplits.length,
         itemBuilder: (BuildContext context,int index){ 
+          
           return GestureDetector(
             onTap: (){
               print('Tapped on item $index');
@@ -51,8 +59,19 @@ class _SplitsPageState extends State<SplitsPage> {
                       Row(children: [
                         Text("Likes: ${dummySplits[index]["likes"].toString()}"),
                         LikeButton(
+                          isLiked: dummySplits[index]["liked"],
                           onTap: (bool isLiked) async{
-                          return !isLiked;
+                            setState(() {
+                            if (!dummySplits[index]["liked"]){
+                              dummySplits[index]["likes"] += 1;
+                              dummySplits[index]["liked"] = true;
+                            }
+                            else{
+                              dummySplits[index]["likes"] -= 1;
+                              dummySplits[index]["liked"] = false;
+                            }
+                            });
+                            return !isLiked;
                           },
                         )
                       ])
@@ -65,7 +84,12 @@ class _SplitsPageState extends State<SplitsPage> {
             )
           );
       }),
-
+      floatingActionButton: FloatingActionButton(onPressed:() => setState(() {
+        /*add in some way to add classes later*/
+        
+      }),
+      child: const Icon(Icons.add),
+      ),
     );
   }
 }
