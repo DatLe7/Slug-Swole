@@ -66,7 +66,7 @@ class _CounterState extends State<Counter> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ElevatedButton(onPressed: _decrementCounter, child: Text("-")),
+                ElevatedButton(onPressed: _decrementCounter, child: Text("-"),),
                 Text(
                   '$_counter',
                   style: Theme.of(context).textTheme.headlineMedium,
