@@ -26,5 +26,7 @@
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:293709989548:ios:2f437fffc42634a4008109</string>
+	<key>DATABASE_URL</key>
+	<string>https://slugswole-default-rtdb.firebaseio.com</string>
 </dict>
 </plist>

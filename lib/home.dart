@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'main.dart';
 import 'data_tracking.dart';
 import 'splits.dart';
 import 'counter.dart';

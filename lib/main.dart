@@ -1,11 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'sign_up.dart';
+import 'auth_gate.dart';
 import 'home.dart';
-import 'login.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
-  runApp(MyApp());
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_ui_auth/firebase_ui_auth.dart';
+/*
+import 'login.dart';
+import 'sign_up.dart';
+*/
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -51,11 +64,13 @@ class _MyHomePageState extends State<MyHomePage> {
     Widget page;
     switch (appState.selectedIndex) {
       case 0:
-        page = MyLoginPage();
+        page = AuthGate();
+      /*
       case 1:
         page = SignUpPage();
       case 2:
         page = HomePage();
+      */
       default:
         throw UnimplementedError("no widget for $appState.selectedIndex");
     }

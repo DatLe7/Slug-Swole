@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "293709989548",
+    "firebase_url": "https://slugswole-default-rtdb.firebaseio.com",
     "project_id": "slugswole",
     "storage_bucket": "slugswole.firebasestorage.app"
   },

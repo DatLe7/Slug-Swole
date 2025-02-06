@@ -46,6 +46,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '293709989548',
     projectId: 'slugswole',
     authDomain: 'slugswole.firebaseapp.com',
+    databaseURL: 'https://slugswole-default-rtdb.firebaseio.com',
     storageBucket: 'slugswole.firebasestorage.app',
     measurementId: 'G-B2QEH246R2',
   );
@@ -55,6 +56,7 @@ class DefaultFirebaseOptions {
     appId: '1:293709989548:android:35b8727b7ec91b91008109',
     messagingSenderId: '293709989548',
     projectId: 'slugswole',
+    databaseURL: 'https://slugswole-default-rtdb.firebaseio.com',
     storageBucket: 'slugswole.firebasestorage.app',
   );
 
@@ -63,6 +65,7 @@ class DefaultFirebaseOptions {
     appId: '1:293709989548:ios:2f437fffc42634a4008109',
     messagingSenderId: '293709989548',
     projectId: 'slugswole',
+    databaseURL: 'https://slugswole-default-rtdb.firebaseio.com',
     storageBucket: 'slugswole.firebasestorage.app',
     iosBundleId: 'com.example.slugSwole',
   );
@@ -72,6 +75,7 @@ class DefaultFirebaseOptions {
     appId: '1:293709989548:ios:2f437fffc42634a4008109',
     messagingSenderId: '293709989548',
     projectId: 'slugswole',
+    databaseURL: 'https://slugswole-default-rtdb.firebaseio.com',
     storageBucket: 'slugswole.firebasestorage.app',
     iosBundleId: 'com.example.slugSwole',
   );
@@ -82,7 +86,9 @@ class DefaultFirebaseOptions {
     messagingSenderId: '293709989548',
     projectId: 'slugswole',
     authDomain: 'slugswole.firebaseapp.com',
+    databaseURL: 'https://slugswole-default-rtdb.firebaseio.com',
     storageBucket: 'slugswole.firebasestorage.app',
     measurementId: 'G-2L24SZ4MWJ',
   );
+
 }

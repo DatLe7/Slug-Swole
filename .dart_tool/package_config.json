@@ -158,6 +158,12 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "firebase_ui_oauth_google",
+      "rootUri": "file:///Users/tyham/.pub-cache/hosted/pub.dev/firebase_ui_oauth_google-1.4.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
       "name": "firebase_ui_shared",
       "rootUri": "file:///Users/tyham/.pub-cache/hosted/pub.dev/firebase_ui_shared-1.4.1",
       "packageUri": "lib/",
@@ -204,6 +210,42 @@
       "rootUri": "file:///Users/tyham/Documents/flutter/flutter/packages/flutter_web_plugins",
       "packageUri": "lib/",
       "languageVersion": "3.2"
+    },
+    {
+      "name": "google_identity_services_web",
+      "rootUri": "file:///Users/tyham/.pub-cache/hosted/pub.dev/google_identity_services_web-0.3.3",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
+    },
+    {
+      "name": "google_sign_in",
+      "rootUri": "file:///Users/tyham/.pub-cache/hosted/pub.dev/google_sign_in-6.2.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
+      "name": "google_sign_in_android",
+      "rootUri": "file:///Users/tyham/.pub-cache/hosted/pub.dev/google_sign_in_android-6.1.34",
+      "packageUri": "lib/",
+      "languageVersion": "3.5"
+    },
+    {
+      "name": "google_sign_in_ios",
+      "rootUri": "file:///Users/tyham/.pub-cache/hosted/pub.dev/google_sign_in_ios-5.7.8",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
+      "name": "google_sign_in_platform_interface",
+      "rootUri": "file:///Users/tyham/.pub-cache/hosted/pub.dev/google_sign_in_platform_interface-2.4.5",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "google_sign_in_web",
+      "rootUri": "file:///Users/tyham/.pub-cache/hosted/pub.dev/google_sign_in_web-0.12.4+3",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
     },
     {
       "name": "http",
@@ -357,7 +399,7 @@
     },
     {
       "name": "vector_graphics",
-      "rootUri": "file:///Users/tyham/.pub-cache/hosted/pub.dev/vector_graphics-1.1.17",
+      "rootUri": "file:///Users/tyham/.pub-cache/hosted/pub.dev/vector_graphics-1.1.18",
       "packageUri": "lib/",
       "languageVersion": "3.4"
     },
@@ -404,7 +446,7 @@
       "languageVersion": "3.6"
     }
   ],
-  "generated": "2025-02-01T07:51:47.520501Z",
+  "generated": "2025-02-05T19:03:50.878251Z",
   "generator": "pub",
   "generatorVersion": "3.6.0",
   "flutterRoot": "file:///Users/tyham/Documents/flutter/flutter",
