@@ -1,0 +1,13 @@
+# This is a generated file; do not edit or check into version control.
+cloud_firestore=/Users/tyham/.pub-cache/hosted/pub.dev/cloud_firestore-5.6.2/
+cloud_firestore_web=/Users/tyham/.pub-cache/hosted/pub.dev/cloud_firestore_web-4.4.2/
+desktop_webview_auth=/Users/tyham/.pub-cache/hosted/pub.dev/desktop_webview_auth-0.0.15/
+firebase_auth=/Users/tyham/.pub-cache/hosted/pub.dev/firebase_auth-5.4.1/
+firebase_auth_web=/Users/tyham/.pub-cache/hosted/pub.dev/firebase_auth_web-5.13.7/
+firebase_core=/Users/tyham/.pub-cache/hosted/pub.dev/firebase_core-3.10.1/
+firebase_core_web=/Users/tyham/.pub-cache/hosted/pub.dev/firebase_core_web-2.19.0/
+firebase_dynamic_links=/Users/tyham/.pub-cache/hosted/pub.dev/firebase_dynamic_links-6.1.1/
+google_sign_in=/Users/tyham/.pub-cache/hosted/pub.dev/google_sign_in-6.2.2/
+google_sign_in_android=/Users/tyham/.pub-cache/hosted/pub.dev/google_sign_in_android-6.1.34/
+google_sign_in_ios=/Users/tyham/.pub-cache/hosted/pub.dev/google_sign_in_ios-5.7.8/
+google_sign_in_web=/Users/tyham/.pub-cache/hosted/pub.dev/google_sign_in_web-0.12.4+3/
