@@ -7,7 +7,13 @@ import 'dart:math';
 
 //Page for graphs and capacity tracking
 class DataPage extends StatelessWidget {
-  final List<FlSpot> dummyData = List.generate(8, (index) { return FlSpot(index.toDouble(), (Random().nextDouble()*120)); });
+  List<FlSpot> dummyData = List.generate(8, (index) { return FlSpot(index.toDouble(), (Random().nextDouble()*120)); });
+  List<FlSpot> dummyData1 = List.generate(8, (index) { return FlSpot(index.toDouble(), (Random().nextDouble()*120)); });
+  List<FlSpot> dummyData2 = List.generate(8, (index) { return FlSpot(index.toDouble(), (Random().nextDouble()*120)); });
+  List<FlSpot> dummyData3 = List.generate(8, (index) { return FlSpot(index.toDouble(), (Random().nextDouble()*120)); });
+  List<FlSpot> dummyData4 = List.generate(8, (index) { return FlSpot(index.toDouble(), (Random().nextDouble()*120)); });
+  List<FlSpot> dummyData5 = List.generate(8, (index) { return FlSpot(index.toDouble(), (Random().nextDouble()*120)); });
+  List<FlSpot> dummyData6 = List.generate(8, (index) { return FlSpot(index.toDouble(), (Random().nextDouble()*120)); });
   DataPage({super.key});
   String howManyPeople(capacity){
     if(capacity == 120){
@@ -61,46 +67,302 @@ class DataPage extends StatelessWidget {
           Container(
             width: MediaQuery.sizeOf(context).width * 0.4,
             height: MediaQuery.sizeOf(context).height * 0.6,
-            padding: EdgeInsets.all(30),
+            padding: EdgeInsets.all(5),
             decoration: BoxDecoration(
               color: Colors.white, 
               borderRadius: BorderRadius.circular(10),
             ),
-            child: LineChart(
-              LineChartData(
-                maxY: 120,
-                minY: 0,
-                lineTouchData: LineTouchData(enabled: false),
-                borderData: FlBorderData(show: false),
-                lineBarsData: [
-                  LineChartBarData(
-                    spots: dummyData,
-                    isCurved: true,
-                    barWidth: 3,
-                    color: Colors.black
-                  ),
-                ],
-                titlesData: FlTitlesData(
-                  topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                  bottomTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                  leftTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: true,
-                      reservedSize: 35,
-                      interval: 20,
-                      maxIncluded: true,
-                      minIncluded: true,
-                    ),
-                  ),
-                  rightTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: false,
-                      reservedSize: 35,
-                    )
+            child: DefaultTabController(
+              initialIndex: 0,
+              length: 7, 
+              child: Scaffold(
+                appBar: AppBar(
+                  title: Text("Weekly Data"),
+                  centerTitle: true,
+                  bottom: TabBar(
+                    tabs: [
+                      Tab(text: "Mon"),
+                      Tab(text: "Tue"),
+                      Tab(text: "Wed"),
+                      Tab(text: "Thu"),
+                      Tab(text: "Fri"),
+                      Tab(text: "Sat"),
+                      Tab(text: "Sun"),
+                    ],
                   ),
                 ),
-              ),
-            ),
+                body: TabBarView(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(20),
+                      child: LineChart(
+                        LineChartData(
+                          maxY: 120,
+                          minY: 0,
+                          lineTouchData: LineTouchData(enabled: false),
+                          borderData: FlBorderData(show: false),
+                          lineBarsData: [
+                            LineChartBarData(
+                              spots: dummyData,
+                              isCurved: true,
+                              barWidth: 3,
+                              color: Colors.black
+                            ),
+                          ],
+                          titlesData: FlTitlesData(
+                            topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                            bottomTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                            leftTitles: AxisTitles(
+                              sideTitles: SideTitles(
+                                showTitles: true,
+                                reservedSize: 35,
+                                interval: 30,
+                                maxIncluded: true,
+                                minIncluded: true,
+                              ),
+                            ),
+                            rightTitles: AxisTitles(
+                              sideTitles: SideTitles(
+                                showTitles: false,
+                                reservedSize: 35,
+                              )
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(20),
+                      child: LineChart(
+                        LineChartData(
+                          maxY: 120,
+                          minY: 0,
+                          lineTouchData: LineTouchData(enabled: false),
+                          borderData: FlBorderData(show: false),
+                          lineBarsData: [
+                            LineChartBarData(
+                              spots: dummyData1,
+                              isCurved: true,
+                              barWidth: 3,
+                              color: Colors.black
+                            ),
+                          ],
+                          titlesData: FlTitlesData(
+                            topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                            bottomTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                            leftTitles: AxisTitles(
+                              sideTitles: SideTitles(
+                                showTitles: true,
+                                reservedSize: 35,
+                                interval: 30,
+                                maxIncluded: true,
+                                minIncluded: true,
+                              ),
+                            ),
+                            rightTitles: AxisTitles(
+                              sideTitles: SideTitles(
+                                showTitles: false,
+                                reservedSize: 35,
+                              )
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(20),
+                      child: LineChart(
+                        LineChartData(
+                          maxY: 120,
+                          minY: 0,
+                          lineTouchData: LineTouchData(enabled: false),
+                          borderData: FlBorderData(show: false),
+                          lineBarsData: [
+                            LineChartBarData(
+                              spots: dummyData2,
+                              isCurved: true,
+                              barWidth: 3,
+                              color: Colors.black
+                            ),
+                          ],
+                          titlesData: FlTitlesData(
+                            topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                            bottomTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                            leftTitles: AxisTitles(
+                              sideTitles: SideTitles(
+                                showTitles: true,
+                                reservedSize: 35,
+                                interval: 30,
+                                maxIncluded: true,
+                                minIncluded: true,
+                              ),
+                            ),
+                            rightTitles: AxisTitles(
+                              sideTitles: SideTitles(
+                                showTitles: false,
+                                reservedSize: 35,
+                              )
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(20),
+                      child: LineChart(
+                        LineChartData(
+                          maxY: 120,
+                          minY: 0,
+                          lineTouchData: LineTouchData(enabled: false),
+                          borderData: FlBorderData(show: false),
+                          lineBarsData: [
+                            LineChartBarData(
+                              spots: dummyData3,
+                              isCurved: true,
+                              barWidth: 3,
+                              color: Colors.black
+                            ),
+                          ],
+                          titlesData: FlTitlesData(
+                            topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                            bottomTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                            leftTitles: AxisTitles(
+                              sideTitles: SideTitles(
+                                showTitles: true,
+                                reservedSize: 35,
+                                interval: 30,
+                                maxIncluded: true,
+                                minIncluded: true,
+                              ),
+                            ),
+                            rightTitles: AxisTitles(
+                              sideTitles: SideTitles(
+                                showTitles: false,
+                                reservedSize: 35,
+                              )
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(20),
+                      child: LineChart(
+                        LineChartData(
+                          maxY: 120,
+                          minY: 0,
+                          lineTouchData: LineTouchData(enabled: false),
+                          borderData: FlBorderData(show: false),
+                          lineBarsData: [
+                            LineChartBarData(
+                              spots: dummyData4,
+                              isCurved: true,
+                              barWidth: 3,
+                              color: Colors.black
+                            ),
+                          ],
+                          titlesData: FlTitlesData(
+                            topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                            bottomTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                            leftTitles: AxisTitles(
+                              sideTitles: SideTitles(
+                                showTitles: true,
+                                reservedSize: 35,
+                                interval: 30,
+                                maxIncluded: true,
+                                minIncluded: true,
+                              ),
+                            ),
+                            rightTitles: AxisTitles(
+                              sideTitles: SideTitles(
+                                showTitles: false,
+                                reservedSize: 35,
+                              )
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(20),
+                      child: LineChart(
+                        LineChartData(
+                          maxY: 120,
+                          minY: 0,
+                          lineTouchData: LineTouchData(enabled: false),
+                          borderData: FlBorderData(show: false),
+                          lineBarsData: [
+                            LineChartBarData(
+                              spots: dummyData5,
+                              isCurved: true,
+                              barWidth: 3,
+                              color: Colors.black
+                            ),
+                          ],
+                          titlesData: FlTitlesData(
+                            topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                            bottomTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                            leftTitles: AxisTitles(
+                              sideTitles: SideTitles(
+                                showTitles: true,
+                                reservedSize: 35,
+                                interval: 30,
+                                maxIncluded: true,
+                                minIncluded: true,
+                              ),
+                            ),
+                            rightTitles: AxisTitles(
+                              sideTitles: SideTitles(
+                                showTitles: false,
+                                reservedSize: 35,
+                              )
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(20),
+                      child: LineChart(
+                        LineChartData(
+                          maxY: 120,
+                          minY: 0,
+                          lineTouchData: LineTouchData(enabled: false),
+                          borderData: FlBorderData(show: false),
+                          lineBarsData: [
+                            LineChartBarData(
+                              spots: dummyData6,
+                              isCurved: true,
+                              barWidth: 3,
+                              color: Colors.black
+                            ),
+                          ],
+                          titlesData: FlTitlesData(
+                            topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                            bottomTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                            leftTitles: AxisTitles(
+                              sideTitles: SideTitles(
+                                showTitles: true,
+                                reservedSize: 35,
+                                interval: 30,
+                                maxIncluded: true,
+                                minIncluded: true,
+                              ),
+                            ),
+                            rightTitles: AxisTitles(
+                              sideTitles: SideTitles(
+                                showTitles: false,
+                                reservedSize: 35,
+                              )
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ]
+                ),
+              )
+            )
           ),
         ],
       ),
