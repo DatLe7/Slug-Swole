@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:like_button/like_button.dart';
 
+
+
 //Page for recording splits
 class SplitsPage extends StatefulWidget {
   const SplitsPage({super.key});
@@ -11,10 +13,10 @@ class SplitsPage extends StatefulWidget {
 }
 
 class _SplitsPageState extends State<SplitsPage> {
+
   // Currently runs off of dummy data, can probable generate a list from FireStore later
   List dummySplits = List.generate(20, (index) => {"name":"Split $index","author":"TEMP", "target":"TEMP","exercises":[],"likes":Random().nextInt(1500), "liked":false});
   @override
-
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     

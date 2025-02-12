@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -5,8 +8,12 @@ import 'counter.dart';
 import 'package:intl/intl.dart';
 import 'dart:math';
 
+import 'backend_services.dart';
+
+
+
 //Page for graphs and capacity tracking
-class DataPage extends StatelessWidget {
+class DataPage extends StatelessWidget {  
   List<FlSpot> dummyData = List.generate(8, (index) { return FlSpot(index.toDouble(), (Random().nextDouble()*120)); });
   List<FlSpot> dummyData1 = List.generate(8, (index) { return FlSpot(index.toDouble(), (Random().nextDouble()*120)); });
   List<FlSpot> dummyData2 = List.generate(8, (index) { return FlSpot(index.toDouble(), (Random().nextDouble()*120)); });

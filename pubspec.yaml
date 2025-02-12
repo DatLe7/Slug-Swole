@@ -15,7 +15,7 @@ dependencies:
   provider: ^6.1.2
   like_button: ^2.0.5
   firebase_core: ^3.10.1
-  cloud_firestore: ^5.6.2
+  cloud_firestore: ^5.6.3
   firebase_ui_auth: ^1.16.1
   firebase_auth: ^5.4.1
   google_sign_in: ^6.2.2
