@@ -13,14 +13,14 @@ import 'backend_services.dart';
 
 
 //Page for graphs and capacity tracking
-class DataPage extends StatelessWidget {  
-  List<FlSpot> dummyData = List.generate(8, (index) { return FlSpot(index.toDouble(), (Random().nextDouble()*120)); });
-  List<FlSpot> dummyData1 = List.generate(8, (index) { return FlSpot(index.toDouble(), (Random().nextDouble()*120)); });
-  List<FlSpot> dummyData2 = List.generate(8, (index) { return FlSpot(index.toDouble(), (Random().nextDouble()*120)); });
-  List<FlSpot> dummyData3 = List.generate(8, (index) { return FlSpot(index.toDouble(), (Random().nextDouble()*120)); });
-  List<FlSpot> dummyData4 = List.generate(8, (index) { return FlSpot(index.toDouble(), (Random().nextDouble()*120)); });
-  List<FlSpot> dummyData5 = List.generate(8, (index) { return FlSpot(index.toDouble(), (Random().nextDouble()*120)); });
-  List<FlSpot> dummyData6 = List.generate(8, (index) { return FlSpot(index.toDouble(), (Random().nextDouble()*120)); });
+class DataPage extends StatelessWidget {
+  List<FlSpot> dummyData = List.generate(8, (index) { return FlSpot(((Random().nextDouble()*18)+6), (Random().nextDouble()*120)); });
+  List<FlSpot> dummyData1 = List.generate(8, (index) { return FlSpot(((Random().nextDouble()*18)+6), (Random().nextDouble()*120)); });
+  List<FlSpot> dummyData2 = List.generate(8, (index) { return FlSpot(((Random().nextDouble()*18)+6), (Random().nextDouble()*120)); });
+  List<FlSpot> dummyData3 = List.generate(8, (index) { return FlSpot(((Random().nextDouble()*18)+6), (Random().nextDouble()*120)); });
+  List<FlSpot> dummyData4 = List.generate(8, (index) { return FlSpot(((Random().nextDouble()*18)+6), (Random().nextDouble()*120)); });
+  List<FlSpot> dummyData5 = List.generate(8, (index) { return FlSpot(((Random().nextDouble()*18)+6), (Random().nextDouble()*120)); });
+  List<FlSpot> dummyData6 = List.generate(8, (index) { return FlSpot(((Random().nextDouble()*18)+6), (Random().nextDouble()*120)); });
   DataPage({super.key});
   String howManyPeople(capacity){
     if(capacity == 120){
@@ -40,7 +40,7 @@ class DataPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var capacity = getCounter(); 
+    var capacity = (Random().nextDouble()*120).roundToDouble().toInt(); // getCounter(); 
     final theme = Theme.of(context);
     final now = DateTime.now();
     String formattedDate = DateFormat.yMMMEd().format(now);
@@ -61,11 +61,57 @@ class DataPage extends StatelessWidget {
               color: Colors.white, 
               borderRadius: BorderRadius.circular(10),
               ),
-              child: Column(
+              child: Row(
                 children: [
-                  Text(formattedDate),
-                  Text("Capacity: ${howManyPeople(capacity)}"),
-                  Text("$capacity / 120"),
+                  Expanded(
+                    child: Center(
+                      child: Column(
+                        children: [
+                          Text(formattedDate),
+                          Text("Capacity: ${howManyPeople(capacity)}"),
+                          Text("$capacity / 120"),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Center(
+                      child: AspectRatio(
+                        aspectRatio: 1,
+                        child: PieChart(
+                          PieChartData(
+                            sections: [
+                              PieChartSectionData(
+                                value: capacity.toDouble(),
+                                title: capacity.toString(),
+                                color: Colors.red,
+                                titleStyle: TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  shadows: [Shadow(color: Colors.black, blurRadius: 2)]
+                                )
+                              ),
+                              PieChartSectionData(
+                                value: (120 - capacity.toDouble()),
+                                title: (120 - capacity).toString(),
+                                color: Colors.grey,
+                                titleStyle: TextStyle(
+                                  fontSize: 15 ,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  shadows: [Shadow(color: Colors.black, blurRadius: 2)]
+                                )
+                              )
+                            ],
+                            sectionsSpace: 3,
+                            centerSpaceRadius: 5.0,
+                            pieTouchData: PieTouchData(enabled: true)
+                          )
+                        ),
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),
@@ -106,6 +152,8 @@ class DataPage extends StatelessWidget {
                         LineChartData(
                           maxY: 120,
                           minY: 0,
+                          maxX: 24,
+                          minX: 6,
                           lineTouchData: LineTouchData(enabled: false),
                           borderData: FlBorderData(show: false),
                           lineBarsData: [
@@ -118,7 +166,15 @@ class DataPage extends StatelessWidget {
                           ],
                           titlesData: FlTitlesData(
                             topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                            bottomTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                            bottomTitles: AxisTitles(
+                              sideTitles: SideTitles(
+                                showTitles: true,
+                                reservedSize: 25,
+                                interval: 3,
+                                maxIncluded: true,
+                                minIncluded: true,
+                                )
+                              ),
                             leftTitles: AxisTitles(
                               sideTitles: SideTitles(
                                 showTitles: true,
