@@ -69,6 +69,7 @@ class DataPage extends StatelessWidget {
 
         var todayData = snapshot.data;
         print(todayData);
+        print("data fetched!");
         
         return LayoutBuilder(
           builder: (context, constraints) {

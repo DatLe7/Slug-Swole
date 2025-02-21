@@ -146,20 +146,20 @@ class HomePageState extends State<HomePage> {
                 centerTitle: true,
               ),
               body: page,
-              bottomNavigationBar: BottomNavigationBar(
+              /*bottomNavigationBar: BottomNavigationBar(
                 items: const [
                   BottomNavigationBarItem(
                     icon: Icon(Icons.bar_chart_outlined),
                     label: 'Home',
                   ),
-                  /*BottomNavigationBarItem(
+                  BottomNavigationBarItem(
                     icon: Icon(Icons.fitness_center),
                     label: "Splits",
-                  ),*/
+                  ),
                 ],
                 currentIndex: selectedIndex,
                 onTap: newState,
-              ),
+              ),*/
             );
           });
         }
