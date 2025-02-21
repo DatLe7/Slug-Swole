@@ -74,14 +74,14 @@ class DataPage extends StatelessWidget {
           builder: (context, constraints) {
             return Scaffold(
               backgroundColor: theme.colorScheme.primary,
-              body: Column(
+              body: ListView(
                 children: [
                   SizedBox(height: 20),
                   Center(
                     child: Container(
                       padding: EdgeInsets.all(10),
-                      width: MediaQuery.sizeOf(context).width * 0.4,
-                      height: MediaQuery.sizeOf(context).height * 0.12,
+                      width: MediaQuery.sizeOf(context).width * 0.7,
+                      height: MediaQuery.sizeOf(context).height * 0.2,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
@@ -143,8 +143,8 @@ class DataPage extends StatelessWidget {
                   ),
                   SizedBox(height: 20),
                   Container(
-                    width: MediaQuery.sizeOf(context).width * 0.4,
-                    height: MediaQuery.sizeOf(context).height * 0.6,
+                    width: MediaQuery.sizeOf(context).width * 0.7,
+                    height: MediaQuery.sizeOf(context).height * 0.5,
                     padding: EdgeInsets.all(5),
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -452,6 +452,7 @@ class DataPage extends StatelessWidget {
                       ),
                     ),
                   ),
+                  SizedBox(height: 30,), 
                 ],
               ),
             );

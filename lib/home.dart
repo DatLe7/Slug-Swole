@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:slug_swole/backend_services.dart';
-
+import 'package:firebase_ui_auth/firebase_ui_auth.dart';
+import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';
 import 'data_tracking.dart';
 import 'splits.dart';
 import 'counter.dart';
@@ -28,10 +29,12 @@ class HomePageState extends State<HomePage> {
       case 0:
         page = DataPage();
         break;
+      /*
       case 1:
         page = SplitsPage();
         break;
-      case 2:
+      */
+      case 1:
         page = Counter();
         break;
       default:
@@ -42,63 +45,87 @@ class HomePageState extends State<HomePage> {
       future: data,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
+          return Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         }
-        //If user is an admin, return the admin home page 
+        //If user is an admin, return the admin home page
         if (snapshot.data) {
           return LayoutBuilder(
-          builder: (context, constraints) {
-            return Scaffold(
-              appBar: AppBar(
-                leading: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Image.asset("assets/fitSlug.png"),
+            builder: (context, constraints) {
+              return Scaffold(
+                appBar: AppBar(
+                  leading: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Image.asset("assets/fitSlug.png"),
+                  ),
+                  toolbarHeight: MediaQuery.sizeOf(context).height * 0.075,
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                  title: FittedBox(
+                    child: RichText(
+                      text: TextSpan(
+                        text: "SLUG",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, color: Colors.yellow),
+                        children: [
+                          TextSpan(
+                              text: "SWOLE",
+                              style: TextStyle(color: Colors.blue)),
+                        ],
+                      ),
+                    ),
+                  ),
+                  actions: [
+                    IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ProfileScreen(
+                                    appBar: AppBar(
+                      title: const Text('User Profile'),
+                    ),
+                                        actions: [
+                                          SignedOutAction((context) {
+                                            Navigator.of(context).pop();
+                                          })
+                                        ],
+                                      )));
+                        },
+                        icon: Icon(
+                          Icons.settings,
+                          color: Colors.white,
+                        ))
+                  ],
+                  centerTitle: true,
                 ),
-                toolbarHeight: MediaQuery.sizeOf(context).height * 0.075,
-                backgroundColor: Theme.of(context).colorScheme.primary,
-                title: RichText(
-                  text: TextSpan(
-                    text: "SLUG",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 50,
-                        color: Colors.yellow),
-                    children: [
-                      TextSpan(
-                          text: "SWOLE", style: TextStyle(color: Colors.blue)),
-                    ],
-                  ),
+                body: page,
+                bottomNavigationBar: BottomNavigationBar(
+                  items: const [
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.bar_chart_outlined),
+                      label: 'Home',
+                    ),
+                    /*BottomNavigationBarItem(
+                      icon: Icon(Icons.fitness_center),
+                      label: "Splits",
+                    ),*/
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.shield_outlined),
+                      label: "counter",
+                    ),
+                  ],
+                  currentIndex: selectedIndex,
+                  onTap: newState,
                 ),
-                centerTitle: true,
-              ),
-              body: page,
-              bottomNavigationBar: BottomNavigationBar(
-                items: const [
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.bar_chart_outlined),
-                    label: 'Home',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.fitness_center),
-                    label: "Splits",
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.shield_outlined),
-                    label: "counter",
-                  ),
-                ],
-                currentIndex: selectedIndex,
-                onTap: newState,
-              ),
-            );
-          },);
+              );
+            },
+          );
         }
-      //otherwise, return the public facing home page
-      else{
-        return LayoutBuilder(builder: (context, constraints) {
+        //otherwise, return the public facing home page
+        else {
+          return LayoutBuilder(builder: (context, constraints) {
             return Scaffold(
               appBar: AppBar(
                 leading: Padding(
@@ -111,9 +138,7 @@ class HomePageState extends State<HomePage> {
                     text: TextSpan(
                         text: "SLUG",
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 50,
-                            color: Colors.yellow),
+                            fontWeight: FontWeight.bold, color: Colors.yellow),
                         children: [
                       TextSpan(
                           text: "SWOLE", style: TextStyle(color: Colors.blue)),
@@ -127,19 +152,17 @@ class HomePageState extends State<HomePage> {
                     icon: Icon(Icons.bar_chart_outlined),
                     label: 'Home',
                   ),
-                  BottomNavigationBarItem(
+                  /*BottomNavigationBarItem(
                     icon: Icon(Icons.fitness_center),
                     label: "Splits",
-                  ),
+                  ),*/
                 ],
                 currentIndex: selectedIndex,
                 onTap: newState,
               ),
             );
           });
-
-      }
-        
+        }
       },
     );
   }
