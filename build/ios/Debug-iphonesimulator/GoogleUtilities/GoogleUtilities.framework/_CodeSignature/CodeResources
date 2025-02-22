@@ -80,9 +80,13 @@
 		<data>
 		4X41UFqYbPvmhDB93lYXejW6oSw=
 		</data>
+		<key>Headers/GULUserDefaults.h</key>
+		<data>
+		0Of0cBjQBb/OBqa93s7xZ8UpjTI=
+		</data>
 		<key>Headers/GoogleUtilities-umbrella.h</key>
 		<data>
-		RdavbdmvdslHznL+EPlCO/nhaUk=
+		+L4ZYE0BQFbCRZcUl8XWjSwt/3M=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -228,11 +232,18 @@
 			RXX77bV5gh6q/JqXdNYIGalkk5NAkTeEyA8ikWTsf5o=
 			</data>
 		</dict>
+		<key>Headers/GULUserDefaults.h</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Wxdmoz232Wm0AngLqZ4q1vZTqOto6hIy1CvelEqvFdQ=
+			</data>
+		</dict>
 		<key>Headers/GoogleUtilities-umbrella.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			d03mJR8egL4PHAc2+cAKXmt3JC4ttwnLXJDJuNV3Kh4=
+			pi0wJgnSszBn13elnmtgKBD9PaXhB6XOJX0H54zD4Xg=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

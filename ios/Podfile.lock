@@ -1168,6 +1168,9 @@ PODS:
     - FirebaseAuth (~> 11.7.0)
   - Firebase/CoreOnly (11.7.0):
     - FirebaseCore (~> 11.7.0)
+  - Firebase/Database (11.7.0):
+    - Firebase/CoreOnly
+    - FirebaseDatabase (~> 11.7.0)
   - Firebase/DynamicLinks (11.7.0):
     - Firebase/CoreOnly
     - FirebaseDynamicLinks (~> 11.7.0)
@@ -1180,6 +1183,10 @@ PODS:
     - Flutter
   - firebase_core (3.11.0):
     - Firebase/CoreOnly (= 11.7.0)
+    - Flutter
+  - firebase_database (11.3.2):
+    - Firebase/Database (= 11.7.0)
+    - firebase_core
     - Flutter
   - firebase_dynamic_links (6.1.1):
     - Firebase/DynamicLinks (= 11.7.0)
@@ -1204,6 +1211,12 @@ PODS:
     - FirebaseCore (~> 11.7.0)
   - FirebaseCoreInternal (11.7.0):
     - "GoogleUtilities/NSData+zlib (~> 8.0)"
+  - FirebaseDatabase (11.7.0):
+    - FirebaseAppCheckInterop (~> 11.0)
+    - FirebaseCore (~> 11.7.0)
+    - FirebaseSharedSwift (~> 11.0)
+    - GoogleUtilities/UserDefaults (~> 8.0)
+    - leveldb-library (~> 1.22)
   - FirebaseDynamicLinks (11.7.0):
     - FirebaseCore (~> 11.7.0)
   - FirebaseFirestore (11.7.0):
@@ -1257,6 +1270,9 @@ PODS:
     - GoogleUtilities/Privacy
   - GoogleUtilities/Privacy (8.0.2)
   - GoogleUtilities/Reachability (8.0.2):
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/UserDefaults (8.0.2):
     - GoogleUtilities/Logger
     - GoogleUtilities/Privacy
   - "gRPC-C++ (1.65.5)":
@@ -1370,6 +1386,7 @@ DEPENDENCIES:
   - desktop_webview_auth (from `.symlinks/plugins/desktop_webview_auth/ios`)
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
+  - firebase_database (from `.symlinks/plugins/firebase_database/ios`)
   - firebase_dynamic_links (from `.symlinks/plugins/firebase_dynamic_links/ios`)
   - Flutter (from `Flutter`)
   - google_sign_in_ios (from `.symlinks/plugins/google_sign_in_ios/darwin`)
@@ -1386,6 +1403,7 @@ SPEC REPOS:
     - FirebaseCore
     - FirebaseCoreExtension
     - FirebaseCoreInternal
+    - FirebaseDatabase
     - FirebaseDynamicLinks
     - FirebaseFirestore
     - FirebaseFirestoreInternal
@@ -1409,6 +1427,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_auth/ios"
   firebase_core:
     :path: ".symlinks/plugins/firebase_core/ios"
+  firebase_database:
+    :path: ".symlinks/plugins/firebase_database/ios"
   firebase_dynamic_links:
     :path: ".symlinks/plugins/firebase_dynamic_links/ios"
   Flutter:
@@ -1425,6 +1445,7 @@ SPEC CHECKSUMS:
   Firebase: a64bf6a8546e6eab54f1c715cd6151f39d2329f4
   firebase_auth: eb680bc7ba85a6de749c5418913aa9a2a5d57bc4
   firebase_core: 3d36094af9b47c46bfb965943413a39eebaca4db
+  firebase_database: 50e93057f854ea3eed67e23adb9f1eb613b90c53
   firebase_dynamic_links: 8577a2eb4a4b340f46b38312e2addd6b09b10c58
   FirebaseAppCheckInterop: 7bf86d55a2b7e9bd91464120eba3e52e4b63b2e2
   FirebaseAuth: 77e25aa24f3e1c626c5babd3338551fc1669ee0e
@@ -1432,6 +1453,7 @@ SPEC CHECKSUMS:
   FirebaseCore: 3227e35f4197a924206fbcdc0349325baf4f5de4
   FirebaseCoreExtension: 206c1b399f0d103055207c16f299b28e3dbd1949
   FirebaseCoreInternal: d6c17dafc8dc33614733a8b52df78fcb4394c881
+  FirebaseDatabase: b014c0068fa691dec5f4a868357e685df882cca5
   FirebaseDynamicLinks: e81e03f6076bd02081ae6e06631797e134380a76
   FirebaseFirestore: e8528981558d50872e24119b9448b18e86cab9f6
   FirebaseFirestoreInternal: 953e31e70db09d928b927b65761171c680d2ea9b

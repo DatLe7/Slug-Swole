@@ -1,11 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'backend_services.dart'; 
+import 'dart:async';
 
+
+DatabaseReference ref = FirebaseDatabase.instance.ref("weekly_capacity_data");
 int _counter = 0;
 int getCounter(){
   return _counter;
 }
 
+
+void scheduleTask() {
+  DateTime now = DateTime.now();
+  int minutesUntilNextExecution = 10 - (now.minute % 10);
+  Duration initialDelay = Duration(minutes: minutesUntilNextExecution, seconds: -now.second);
+
+  Future.delayed(initialDelay, () {
+    Timer.periodic(Duration(minutes: 10), (timer) {
+      uploadData(_counter);
+    });
+  });
+}
+
+
 class Counter extends StatefulWidget {
+  
   const Counter({super.key});
 
   @override
@@ -14,11 +37,17 @@ class Counter extends StatefulWidget {
 
 
 class _CounterState extends State<Counter> {
+  @override
+  final mostRecent = getMostRecent();
+  void initState() {
+    super.initState();
+    scheduleTask();  // Start the task only once when the widget is first initialized
+  }
+
   void _incrementCounter() {
     if(_counter < 120){
       setState(() {
         _counter++;
-
     });}
       
   }
@@ -26,61 +55,56 @@ class _CounterState extends State<Counter> {
     if(_counter > 0){
       setState(() {
         _counter--;
- 
     });}
   }
   void _setCounter(int x){
     setState((){
       _counter = x;
     });
+
   }
   @override
   Widget build(BuildContext context) {
-  
     
-  return Scaffold(
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              "Staff only feature!"),
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(onPressed: _decrementCounter, child: Text("-"),),
-                Text(
-                  '$_counter',
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ),
-                ElevatedButton(onPressed: _incrementCounter, child: Text("+")),
-            
-              ],
-            
-            ),
-            
-          ],
+    return FutureBuilder(
+      future: mostRecent,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator();
+        }
+        if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        }
+    Map<String, dynamic> data = snapshot.data as Map<String, dynamic>;
+    var capacity = data["capacity"];
+    _counter = capacity;
+   
+    return Scaffold( 
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const Text(
+                "Staff only feature!"),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(onPressed: _decrementCounter, child: Text("-"),),
+                  Text(
+                    '$_counter',
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
+                  ElevatedButton(onPressed: _incrementCounter, child: Text("+")),
+              
+                ],
+              
+              ),
+              
+            ],
+          ),
         ),
-      ),
-      // This trailing comma makes auto-formatting nicer for build methods.
-    );
+        // This trailing comma makes auto-formatting nicer for build methods.
+      );
+  });
   }
 }

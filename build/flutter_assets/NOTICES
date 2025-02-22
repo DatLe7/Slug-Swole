@@ -1,6 +1,7 @@
 _flutterfire_internals
 cloud_firestore
 cloud_firestore_platform_interface
+firebase_database_platform_interface
 firebase_ui_auth
 firebase_ui_localizations
 firebase_ui_oauth
@@ -4870,6 +4871,8 @@ firebase_auth_platform_interface
 firebase_auth_web
 firebase_core
 firebase_core_platform_interface
+firebase_database
+firebase_database_web
 
 // Copyright 2017 The Chromium Authors. All rights reserved.
 //

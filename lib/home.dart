@@ -83,9 +83,9 @@ class HomePageState extends State<HomePage> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => ProfileScreen(
-                                    appBar: AppBar(
-                      title: const Text('User Profile'),
-                    ),
+                                        appBar: AppBar(
+                                          title: const Text('User Profile'),
+                                        ),
                                         actions: [
                                           SignedOutAction((context) {
                                             Navigator.of(context).pop();
@@ -144,6 +144,28 @@ class HomePageState extends State<HomePage> {
                           text: "SWOLE", style: TextStyle(color: Colors.blue)),
                     ])),
                 centerTitle: true,
+                actions: [
+                  IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ProfileScreen(
+                                      appBar: AppBar(
+                                        title: const Text('User Profile'),
+                                      ),
+                                      actions: [
+                                        SignedOutAction((context) {
+                                          Navigator.of(context).pop();
+                                        })
+                                      ],
+                                    )));
+                      },
+                      icon: Icon(
+                        Icons.settings,
+                        color: Colors.white,
+                      ))
+                ],
               ),
               body: page,
               /*bottomNavigationBar: BottomNavigationBar(
