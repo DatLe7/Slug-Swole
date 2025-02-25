@@ -14,13 +14,6 @@ import 'backend_services.dart';
 class DataPage extends StatelessWidget {
   var facilityData = getFacilityData("east_field_gym");
   var mostRecent = getMostRecent();
-  var getMonday = getDayOfWeek('monday');
-  var getTuesday = getDayOfWeek('tuesday');
-  var getWednesday = getDayOfWeek('wednesday');
-  var getThursday = getDayOfWeek('thursday');
-  var getFriday = getDayOfWeek('friday');
-  var getSaturday = getDayOfWeek('saturday');
-  var getSunday = getDayOfWeek('sunday');
   List<FlSpot> dummyData = List.generate(8, (index) {
     return FlSpot(
         ((Random().nextDouble() * 18) + 6), (Random().nextDouble() * 120));
@@ -198,175 +191,13 @@ class DataPage extends StatelessWidget {
                     ),
                     body: TabBarView(
                       children: [
-                        //TODO: convert the data to a FLChart List and display !!!
-                        //Monday
-                        FutureBuilder(
-                            future: getMonday,
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return Center(
-                                    child: CircularProgressIndicator());
-                              }
-                              if (snapshot.hasError) {
-                                return Center(
-                                    child: Text('Error: ${snapshot.error}'));
-                              }
-                              if (!snapshot.hasData || snapshot.data == null) {
-                                return Center(child: Text('No data available'));
-                              }
-                              var thing = snapshot.data as List<dynamic>;
-                              for (var item in thing) {
-                                print('${item['capacity']}');
-                                print(item['timestamp'].toDate());
-                              }
-
-                              return WeekGraph(capData: dummyData);
-                            }),
-                        //Tuesday
-                        FutureBuilder(
-                            future: getTuesday,
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return Center(
-                                    child: CircularProgressIndicator());
-                              }
-                              if (snapshot.hasError) {
-                                return Center(
-                                    child: Text('Error: ${snapshot.error}'));
-                              }
-                              if (!snapshot.hasData || snapshot.data == null) {
-                                return Center(child: Text('No data available'));
-                              }
-                              var thing = snapshot.data as List<dynamic>;
-                              for (var item in thing) {
-                                print('${item['capacity']}');
-                                print(item['timestamp'].toDate());
-                              }
-
-                              return WeekGraph(capData: dummyData);
-                            }),
-                        //Wednesday
-                        FutureBuilder(
-                            future: getWednesday,
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return Center(
-                                    child: CircularProgressIndicator());
-                              }
-                              if (snapshot.hasError) {
-                                return Center(
-                                    child: Text('Error: ${snapshot.error}'));
-                              }
-                              if (!snapshot.hasData || snapshot.data == null) {
-                                return Center(child: Text('No data available'));
-                              }
-                              var thing = snapshot.data as List<dynamic>;
-                              for (var item in thing) {
-                                print('${item['capacity']}');
-                                print(item['timestamp'].toDate());
-                              }
-
-                              return WeekGraph(capData: dummyData4);
-                            }),
-                        //Thursday
-                        FutureBuilder(
-                            future: getThursday,
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return Center(
-                                    child: CircularProgressIndicator());
-                              }
-                              if (snapshot.hasError) {
-                                return Center(
-                                    child: Text('Error: ${snapshot.error}'));
-                              }
-                              if (!snapshot.hasData || snapshot.data == null) {
-                                return Center(child: Text('No data available'));
-                              }
-                              var thing = snapshot.data as List<dynamic>;
-                              for (var item in thing) {
-                                print('${item['capacity']}');
-                                print(item['timestamp'].toDate());
-                              }
-
-                              return WeekGraph(capData: dummyData5);
-                            }),
-                        //Friday
-                        FutureBuilder(
-                            future: getFriday,
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return Center(
-                                    child: CircularProgressIndicator());
-                              }
-                              if (snapshot.hasError) {
-                                return Center(
-                                    child: Text('Error: ${snapshot.error}'));
-                              }
-                              if (!snapshot.hasData || snapshot.data == null) {
-                                return Center(child: Text('No data available'));
-                              }
-                              var thing = snapshot.data as List<dynamic>;
-                              for (var item in thing) {
-                                print('${item['capacity']}');
-                                print(item['timestamp'].toDate());
-                              }
-
-                              return WeekGraph(capData: dummyData6);
-                            }),
-                        //Saturday
-                        FutureBuilder(
-                            future: getSaturday,
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return Center(
-                                    child: CircularProgressIndicator());
-                              }
-                              if (snapshot.hasError) {
-                                return Center(
-                                    child: Text('Error: ${snapshot.error}'));
-                              }
-                              if (!snapshot.hasData || snapshot.data == null) {
-                                return Center(child: Text('No data available'));
-                              }
-                              var thing = snapshot.data as List<dynamic>;
-                              for (var item in thing) {
-                                print('${item['capacity']}');
-                                print(item['timestamp'].toDate());
-                              }
-
-                              return WeekGraph(capData: dummyData6);
-                            }),
-                        //Sunday
-                        FutureBuilder(
-                            future: getSunday,
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return Center(
-                                    child: CircularProgressIndicator());
-                              }
-                              if (snapshot.hasError) {
-                                return Center(
-                                    child: Text('Error: ${snapshot.error}'));
-                              }
-                              if (!snapshot.hasData || snapshot.data == null) {
-                                return Center(child: Text('No data available'));
-                              }
-                              var thing = snapshot.data as List<dynamic>;
-                              for (var item in thing) {
-                                print('${item['capacity']}');
-                                print(item['timestamp'].toDate());
-                              }
-
-                              return WeekGraph(capData: dummyData6);
-                            }),
+                        WeekGraph(capData: dummyData), 
+                        WeekGraph(capData: dummyData1),
+                        WeekGraph(capData: dummyData2),
+                        WeekGraph(capData: dummyData3),
+                        WeekGraph(capData: dummyData4),
+                        WeekGraph(capData: dummyData5),
+                        WeekGraph(capData: dummyData6),
                       ],
                     ),
                   ),

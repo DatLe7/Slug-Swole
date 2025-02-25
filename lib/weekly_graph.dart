@@ -1,65 +1,90 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'backend_services.dart';
 
 class WeekGraph extends StatefulWidget {
-    final List<FlSpot> capData;
+  final List<FlSpot> capData;
 
-    const WeekGraph({super.key, required this.capData});
+  const WeekGraph({super.key, required this.capData});
 
-    @override
-    State<WeekGraph> createState() => _WeekGraphState();
+  @override
+  State<WeekGraph> createState() => _WeekGraphState();
 }
 
 class _WeekGraphState extends State<WeekGraph> {
-    @override
-    Widget build(BuildContext context) {
-        return Container(
-            padding: EdgeInsets.all(20),
-            child: LineChart(
+  //change this to a parameter !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  var day = 'monday';
+  //parameters should be spelled correctly and all lowercase please
+  @override
+  Widget build(BuildContext context) {
+    var getDateData = getDayOfWeek(day);
+    return Container(
+      padding: EdgeInsets.all(20),
+      child: FutureBuilder(
+        future: getDateData,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          }
+          if (!snapshot.hasData || snapshot.data == null) {
+            return Center(child: Text('No data available'));
+          }
+          var data = snapshot.data as List<dynamic>;
+          for (var item in data) {
+            print(item['capacity']);
+            print(item['timestamp'].toDate());
+          }
+          return LineChart(
             LineChartData(
-                maxY: 120,
-                minY: 0,
-                maxX: 24,
-                minX: 6,
-                lineTouchData: LineTouchData(enabled: false),
-                borderData: FlBorderData(show: false),
-                lineBarsData: [
+              maxY: 120,
+              minY: 0,
+              maxX: 24,
+              minX: 6,
+              lineTouchData: LineTouchData(enabled: false),
+              borderData: FlBorderData(show: false),
+              lineBarsData: [
                 LineChartBarData(
-                    spots: widget.capData,
-                    isCurved: true,
-                    barWidth: 3,
-                    color: Colors.black,
+                  spots: widget.capData,
+                  isCurved: true,
+                  barWidth: 3,
+                  color: Colors.black,
                 ),
-                ],
-                titlesData: FlTitlesData(
-                topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+              ],
+              titlesData: FlTitlesData(
+                topTitles:
+                    AxisTitles(sideTitles: SideTitles(showTitles: false)),
                 bottomTitles: AxisTitles(
-                    sideTitles: SideTitles(
+                  sideTitles: SideTitles(
                     showTitles: true,
                     reservedSize: 25,
                     interval: 3,
                     maxIncluded: true,
                     minIncluded: true,
-                    ),
+                  ),
                 ),
                 leftTitles: AxisTitles(
-                    sideTitles: SideTitles(
+                  sideTitles: SideTitles(
                     showTitles: true,
                     reservedSize: 35,
                     interval: 30,
                     maxIncluded: true,
                     minIncluded: true,
-                    ),
+                  ),
                 ),
                 rightTitles: AxisTitles(
-                    sideTitles: SideTitles(
+                  sideTitles: SideTitles(
                     showTitles: false,
                     reservedSize: 35,
-                    ),
+                  ),
                 ),
-                ),
+              ),
             ),
-            ),
-        );
-    }
+          );
+        },
+      ),
+    );
+  }
 }
