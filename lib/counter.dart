@@ -41,7 +41,7 @@ class _CounterState extends State<Counter> {
   final mostRecent = getMostRecent();
   void initState() {
     super.initState();
-    scheduleTask();  // Start the task only once when the widget is first initialized
+    //scheduleTask();  // Start the task only once when the widget is first initialized
   }
 
   void _incrementCounter() {

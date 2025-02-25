@@ -13,33 +13,47 @@ import 'backend_services.dart';
 // Page for graphs and capacity tracking
 class DataPage extends StatelessWidget {
   var facilityData = getFacilityData("east_field_gym");
-  var todayData = getTodaysData();
+  var mostRecent = getMostRecent();
+  var getMonday = getDayOfWeek('monday');
+  var getTuesday = getDayOfWeek('tuesday');
+  var getWednesday = getDayOfWeek('wednesday');
+  var getThursday = getDayOfWeek('thursday');
+  var getFriday = getDayOfWeek('friday');
+  var getSaturday = getDayOfWeek('saturday');
+  var getSunday = getDayOfWeek('sunday');
   List<FlSpot> dummyData = List.generate(8, (index) {
-    return FlSpot(((Random().nextDouble() * 18) + 6), (Random().nextDouble() * 120));
+    return FlSpot(
+        ((Random().nextDouble() * 18) + 6), (Random().nextDouble() * 120));
   });
   List<FlSpot> dummyData1 = List.generate(8, (index) {
-    return FlSpot(((Random().nextDouble() * 18) + 6), (Random().nextDouble() * 120));
+    return FlSpot(
+        ((Random().nextDouble() * 18) + 6), (Random().nextDouble() * 120));
   });
   List<FlSpot> dummyData2 = List.generate(8, (index) {
-    return FlSpot(((Random().nextDouble() * 18) + 6), (Random().nextDouble() * 120));
+    return FlSpot(
+        ((Random().nextDouble() * 18) + 6), (Random().nextDouble() * 120));
   });
   List<FlSpot> dummyData3 = List.generate(8, (index) {
-    return FlSpot(((Random().nextDouble() * 18) + 6), (Random().nextDouble() * 120));
+    return FlSpot(
+        ((Random().nextDouble() * 18) + 6), (Random().nextDouble() * 120));
   });
   List<FlSpot> dummyData4 = List.generate(8, (index) {
-    return FlSpot(((Random().nextDouble() * 18) + 6), (Random().nextDouble() * 120));
+    return FlSpot(
+        ((Random().nextDouble() * 18) + 6), (Random().nextDouble() * 120));
   });
   List<FlSpot> dummyData5 = List.generate(8, (index) {
-    return FlSpot(((Random().nextDouble() * 18) + 6), (Random().nextDouble() * 120));
+    return FlSpot(
+        ((Random().nextDouble() * 18) + 6), (Random().nextDouble() * 120));
   });
   List<FlSpot> dummyData6 = List.generate(8, (index) {
-    return FlSpot(((Random().nextDouble() * 18) + 6), (Random().nextDouble() * 120));
+    return FlSpot(
+        ((Random().nextDouble() * 18) + 6), (Random().nextDouble() * 120));
   });
 
   DataPage({super.key});
 
-  String howManyPeople(capacity) {
-    if (capacity == 120) {
+  String howManyPeople(int capacity) {
+    if (capacity > 120) {
       return "Full";
     } else if (capacity > 100) {
       return "Very Busy";
@@ -52,52 +66,54 @@ class DataPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var capacity = (Random().nextDouble() * 120).roundToDouble().toInt(); // getCounter();
     final theme = Theme.of(context);
     final now = DateTime.now();
     String formattedDate = DateFormat.yMMMEd().format(now);
 
-    return FutureBuilder(
-      future: todayData,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
-        }
-        if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
-        }
-
-        var todayData = snapshot.data;
-        print(todayData);
-        print("data fetched!");
-        
-        return LayoutBuilder(
-          builder: (context, constraints) {
-            return Scaffold(
-              backgroundColor: theme.colorScheme.primary,
-              body: ListView(
-                children: [
-                  SizedBox(height: 20),
-                  Center(
-                    child: Container(
-                      padding: EdgeInsets.all(10),
-                      width: MediaQuery.sizeOf(context).width * 0.7,
-                      height: MediaQuery.sizeOf(context).height * 0.2,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Row(
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Scaffold(
+          backgroundColor: theme.colorScheme.primary,
+          body: ListView(
+            children: [
+              SizedBox(height: 20),
+              Center(
+                child: Container(
+                  padding: EdgeInsets.all(10),
+                  width: MediaQuery.sizeOf(context).width * 0.7,
+                  height: MediaQuery.sizeOf(context).height * 0.2,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: FutureBuilder(
+                    future: mostRecent,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(child: CircularProgressIndicator());
+                      }
+                      if (snapshot.hasError) {
+                        return Center(child: Text('Error: ${snapshot.error}'));
+                      }
+                      if (!snapshot.hasData || snapshot.data == null) {
+                        return Center(child: Text('No data available'));
+                      }
+                      Map<String, dynamic> fullData =
+                          snapshot.data as Map<String, dynamic>;
+                      int todayData = fullData["capacity"] is int
+                          ? fullData["capacity"]
+                          : int.tryParse(fullData["capacity"].toString()) ?? 0;
+                      return Row(
                         children: [
                           Expanded(
                             child: Center(
-                                child: Column(
-                                  children: [
-                                    Text(formattedDate),
-                                    Text("Capacity: ${howManyPeople(capacity)}"),
-                                    Text("$todayData / 140"),
-                                  ],
-                                ),
+                              child: Column(
+                                children: [
+                                  Text(formattedDate),
+                                  Text("Capacity: ${howManyPeople(todayData)}"),
+                                  Text("$todayData / 150"),
+                                ],
+                              ),
                             ),
                           ),
                           Expanded(
@@ -108,25 +124,33 @@ class DataPage extends StatelessWidget {
                                   PieChartData(
                                     sections: [
                                       PieChartSectionData(
-                                        value: capacity.toDouble(),
-                                        title: capacity.toString(),
+                                        value: todayData.toDouble(),
+                                        title: todayData.toString(),
                                         color: Colors.red,
                                         titleStyle: TextStyle(
                                           fontSize: 15,
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold,
-                                          shadows: [Shadow(color: Colors.black, blurRadius: 2)],
+                                          shadows: [
+                                            Shadow(
+                                                color: Colors.black,
+                                                blurRadius: 2)
+                                          ],
                                         ),
                                       ),
                                       PieChartSectionData(
-                                        value: (120 - capacity.toDouble()),
-                                        title: (120 - capacity).toString(),
+                                        value: (150 - todayData.toDouble()),
+                                        title: (150 - todayData).toString(),
                                         color: Colors.grey,
                                         titleStyle: TextStyle(
                                           fontSize: 15,
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold,
-                                          shadows: [Shadow(color: Colors.black, blurRadius: 2)],
+                                          shadows: [
+                                            Shadow(
+                                                color: Colors.black,
+                                                blurRadius: 2)
+                                          ],
                                         ),
                                       ),
                                     ],
@@ -139,56 +163,218 @@ class DataPage extends StatelessWidget {
                             ),
                           ),
                         ],
-                      ),
-                    ),
+                      );
+                    },
                   ),
-                  SizedBox(height: 20),
-                  Container(
-                    width: MediaQuery.sizeOf(context).width * 0.7,
-                    height: MediaQuery.sizeOf(context).height * 0.5,
-                    padding: EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: DefaultTabController(
-                      initialIndex: 0,
-                      length: 7,
-                      child: Scaffold(
-                        appBar: AppBar(
-                          title: Text("Weekly Data"),
-                          centerTitle: true,
-                          bottom: TabBar(
-                            tabs: [
-                              Tab(text: "Mon"),
-                              Tab(text: "Tue"),
-                              Tab(text: "Wed"),
-                              Tab(text: "Thu"),
-                              Tab(text: "Fri"),
-                              Tab(text: "Sat"),
-                              Tab(text: "Sun"),
-                            ],
-                          ),
-                        ),
-                        body: TabBarView(
-                          children: [
-                            WeekGraph(capData: dummyData),
-                            WeekGraph(capData: dummyData1),
-                            WeekGraph(capData: dummyData2),
-                            WeekGraph(capData: dummyData3),
-                            WeekGraph(capData: dummyData4),
-                            WeekGraph(capData: dummyData5),
-                            WeekGraph(capData: dummyData6),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 30,), 
-                ],
+                ),
               ),
-            );
-          },
+              SizedBox(height: 20),
+              Container(
+                width: MediaQuery.sizeOf(context).width * 0.7,
+                height: MediaQuery.sizeOf(context).height * 0.5,
+                padding: EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: DefaultTabController(
+                  initialIndex: 0,
+                  length: 7,
+                  child: Scaffold(
+                    appBar: AppBar(
+                      title: Text("Weekly Data"),
+                      centerTitle: true,
+                      bottom: TabBar(
+                        tabs: [
+                          Tab(text: "Mon"),
+                          Tab(text: "Tue"),
+                          Tab(text: "Wed"),
+                          Tab(text: "Thu"),
+                          Tab(text: "Fri"),
+                          Tab(text: "Sat"),
+                          Tab(text: "Sun"),
+                        ],
+                      ),
+                    ),
+                    body: TabBarView(
+                      children: [
+                        //TODO: convert the data to a FLChart List and display !!!
+                        //Monday
+                        FutureBuilder(
+                            future: getMonday,
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return Center(
+                                    child: CircularProgressIndicator());
+                              }
+                              if (snapshot.hasError) {
+                                return Center(
+                                    child: Text('Error: ${snapshot.error}'));
+                              }
+                              if (!snapshot.hasData || snapshot.data == null) {
+                                return Center(child: Text('No data available'));
+                              }
+                              var thing = snapshot.data as List<dynamic>;
+                              for (var item in thing) {
+                                print('${item['capacity']}');
+                                print(item['timestamp'].toDate());
+                              }
+
+                              return WeekGraph(capData: dummyData);
+                            }),
+                        //Tuesday
+                        FutureBuilder(
+                            future: getTuesday,
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return Center(
+                                    child: CircularProgressIndicator());
+                              }
+                              if (snapshot.hasError) {
+                                return Center(
+                                    child: Text('Error: ${snapshot.error}'));
+                              }
+                              if (!snapshot.hasData || snapshot.data == null) {
+                                return Center(child: Text('No data available'));
+                              }
+                              var thing = snapshot.data as List<dynamic>;
+                              for (var item in thing) {
+                                print('${item['capacity']}');
+                                print(item['timestamp'].toDate());
+                              }
+
+                              return WeekGraph(capData: dummyData);
+                            }),
+                        //Wednesday
+                        FutureBuilder(
+                            future: getWednesday,
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return Center(
+                                    child: CircularProgressIndicator());
+                              }
+                              if (snapshot.hasError) {
+                                return Center(
+                                    child: Text('Error: ${snapshot.error}'));
+                              }
+                              if (!snapshot.hasData || snapshot.data == null) {
+                                return Center(child: Text('No data available'));
+                              }
+                              var thing = snapshot.data as List<dynamic>;
+                              for (var item in thing) {
+                                print('${item['capacity']}');
+                                print(item['timestamp'].toDate());
+                              }
+
+                              return WeekGraph(capData: dummyData4);
+                            }),
+                        //Thursday
+                        FutureBuilder(
+                            future: getThursday,
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return Center(
+                                    child: CircularProgressIndicator());
+                              }
+                              if (snapshot.hasError) {
+                                return Center(
+                                    child: Text('Error: ${snapshot.error}'));
+                              }
+                              if (!snapshot.hasData || snapshot.data == null) {
+                                return Center(child: Text('No data available'));
+                              }
+                              var thing = snapshot.data as List<dynamic>;
+                              for (var item in thing) {
+                                print('${item['capacity']}');
+                                print(item['timestamp'].toDate());
+                              }
+
+                              return WeekGraph(capData: dummyData5);
+                            }),
+                        //Friday
+                        FutureBuilder(
+                            future: getFriday,
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return Center(
+                                    child: CircularProgressIndicator());
+                              }
+                              if (snapshot.hasError) {
+                                return Center(
+                                    child: Text('Error: ${snapshot.error}'));
+                              }
+                              if (!snapshot.hasData || snapshot.data == null) {
+                                return Center(child: Text('No data available'));
+                              }
+                              var thing = snapshot.data as List<dynamic>;
+                              for (var item in thing) {
+                                print('${item['capacity']}');
+                                print(item['timestamp'].toDate());
+                              }
+
+                              return WeekGraph(capData: dummyData6);
+                            }),
+                        //Saturday
+                        FutureBuilder(
+                            future: getSaturday,
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return Center(
+                                    child: CircularProgressIndicator());
+                              }
+                              if (snapshot.hasError) {
+                                return Center(
+                                    child: Text('Error: ${snapshot.error}'));
+                              }
+                              if (!snapshot.hasData || snapshot.data == null) {
+                                return Center(child: Text('No data available'));
+                              }
+                              var thing = snapshot.data as List<dynamic>;
+                              for (var item in thing) {
+                                print('${item['capacity']}');
+                                print(item['timestamp'].toDate());
+                              }
+
+                              return WeekGraph(capData: dummyData6);
+                            }),
+                        //Sunday
+                        FutureBuilder(
+                            future: getSunday,
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return Center(
+                                    child: CircularProgressIndicator());
+                              }
+                              if (snapshot.hasError) {
+                                return Center(
+                                    child: Text('Error: ${snapshot.error}'));
+                              }
+                              if (!snapshot.hasData || snapshot.data == null) {
+                                return Center(child: Text('No data available'));
+                              }
+                              var thing = snapshot.data as List<dynamic>;
+                              for (var item in thing) {
+                                print('${item['capacity']}');
+                                print(item['timestamp'].toDate());
+                              }
+
+                              return WeekGraph(capData: dummyData6);
+                            }),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 30),
+            ],
+          ),
         );
       },
     );
