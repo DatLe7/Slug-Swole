@@ -18,15 +18,15 @@ double calculateAverage(List<int> numbers){
 List<int> getHours(String day){
   switch (day){
     case ('monday'):
-      return [6, 23];
+      return [6, 24];
     case ('tuesday'):
-      return [6, 23];
+      return [6, 24];
     case ('wednesday'):
-      return [6, 23];
+      return [6, 24];
     case ('thursday'):
-      return [6, 23];
+      return [6, 24];
     case ('friday'):
-      return [6, 23];
+      return [6, 24];
     case ('saturday'):
       return [8, 20];
     case ('sunday'):
@@ -51,7 +51,7 @@ class _WeekGraphState extends State<WeekGraph> {
   Widget build(BuildContext context) {
     var getDateData = getDayOfWeek(widget.day);
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.only(left: 10, right: 20, top: 20, bottom: 20),
       child: FutureBuilder(
         future: getDateData,
         builder: (context, snapshot) {
@@ -99,10 +99,12 @@ class _WeekGraphState extends State<WeekGraph> {
               borderData: FlBorderData(show: false),
               lineBarsData: [
                 LineChartBarData(
+                  dotData: FlDotData(show: false),
                   spots: chartData,
                   isCurved: true,
-                  barWidth: 3,
+                  barWidth: 4,
                   color: Colors.black,
+                  isStrokeCapRound: true,
                 ),
               ],
               titlesData: FlTitlesData(
@@ -112,7 +114,7 @@ class _WeekGraphState extends State<WeekGraph> {
                   sideTitles: SideTitles(
                     showTitles: true,
                     reservedSize: 25,
-                    interval: 3,
+                    interval: 2,
                     maxIncluded: true,
                     minIncluded: true,
                   ),
