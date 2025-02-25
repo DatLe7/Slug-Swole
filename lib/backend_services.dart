@@ -72,7 +72,8 @@ DateTime getLastX(int day) {
   DateTime lastx = now.subtract(Duration(days: daySinceX));
   return DateTime.utc(lastx.year, lastx.month, lastx.day);
 }
-  getDayOfWeek(String day) async {
+
+getDayOfWeek(String day) async {
   var x;
   switch (day) {
     case 'monday':

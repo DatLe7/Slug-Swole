@@ -42,7 +42,7 @@ class DataPage extends StatelessWidget {
     return FlSpot(
         ((Random().nextDouble() * 18) + 6), (Random().nextDouble() * 120));
   });
-
+  
   DataPage({super.key});
 
   String howManyPeople(int capacity) {
@@ -62,7 +62,7 @@ class DataPage extends StatelessWidget {
     final theme = Theme.of(context);
     final now = DateTime.now();
     String formattedDate = DateFormat.yMMMEd().format(now);
-
+    
     return LayoutBuilder(
       builder: (context, constraints) {
         return Scaffold(
@@ -191,13 +191,13 @@ class DataPage extends StatelessWidget {
                     ),
                     body: TabBarView(
                       children: [
-                        WeekGraph(capData: dummyData), 
-                        WeekGraph(capData: dummyData1),
-                        WeekGraph(capData: dummyData2),
-                        WeekGraph(capData: dummyData3),
-                        WeekGraph(capData: dummyData4),
-                        WeekGraph(capData: dummyData5),
-                        WeekGraph(capData: dummyData6),
+                        WeekGraph(day: 'monday'), 
+                        WeekGraph(day: 'tuesday'),
+                        WeekGraph(day: 'wednesday'),
+                        WeekGraph(day: 'thursday'),
+                        WeekGraph(day: 'friday'),
+                        WeekGraph(day: 'saturday'),
+                        WeekGraph(day: 'sunday'),
                       ],
                     ),
                   ),
