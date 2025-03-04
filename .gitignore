@@ -1,0 +1,10 @@
+# iOS  
+ios/Pods/  
+ios/.generated/  
+ios/.symlinks/  
+ios/Flutter/  
+
+# Android  
+android/.gradle/  
+android/app/build/  
+android/.idea/  

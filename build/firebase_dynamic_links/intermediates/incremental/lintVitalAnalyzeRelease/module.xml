@@ -1,0 +1,26 @@
+<lint-module
+    format="1"
+    dir="C:\Users\dat90\AppData\Local\Pub\Cache\hosted\pub.dev\firebase_dynamic_links-6.1.1\android"
+    name=":firebase_dynamic_links"
+    type="LIBRARY"
+    maven="io.flutter.plugins.firebase.dynamiclinks:firebase_dynamic_links:"
+    agpVersion="8.2.1"
+    buildFolder="C:\Users\dat90\OneDrive\Desktop\VS CODE\Slug-Swole\build\firebase_dynamic_links"
+    bootClassPath="C:\Users\dat90\AppData\Local\Android\Sdk\platforms\android-34\android.jar;C:\Users\dat90\AppData\Local\Android\Sdk\build-tools\34.0.0\core-lambda-stubs.jar"
+    javaSourceLevel="1.8"
+    compileTarget="android-34"
+    neverShrinking="true">
+  <lintOptions
+      disable="InvalidPackage"
+      abortOnError="true"
+      absolutePaths="true"
+      checkReleaseBuilds="true"
+      explainIssues="true">
+    <severities>
+      <severity
+        id="InvalidPackage"
+        severity="IGNORE" />
+    </severities>
+  </lintOptions>
+  <variant name="release"/>
+</lint-module>

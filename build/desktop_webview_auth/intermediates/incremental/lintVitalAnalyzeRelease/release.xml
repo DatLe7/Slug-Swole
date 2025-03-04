@@ -1,0 +1,31 @@
+<variant
+    name="release"
+    package="io.invertase.desktop_webview_auth"
+    minSdkVersion="16"
+    targetSdkVersion="16"
+    mergedManifest="C:\Users\dat90\OneDrive\Desktop\VS CODE\Slug-Swole\build\desktop_webview_auth\intermediates\merged_manifest\release\AndroidManifest.xml"
+    proguardFiles="C:\Users\dat90\OneDrive\Desktop\VS CODE\Slug-Swole\build\desktop_webview_auth\intermediates\default_proguard_files\global\proguard-android.txt-8.2.1"
+    partialResultsDir="C:\Users\dat90\OneDrive\Desktop\VS CODE\Slug-Swole\build\desktop_webview_auth\intermediates\lint_vital_partial_results\release\out"
+    desugaredMethodsFiles="C:\Users\dat90\.gradle\caches\transforms-3\3720dde5a71fd4f973a7e1ea818c545f\transformed\D8BackportedDesugaredMethods.txt">
+  <buildFeatures
+      namespacing="REQUIRED"/>
+  <sourceProviders>
+    <sourceProvider
+        manifests="src\main\AndroidManifest.xml"
+        javaDirectories="src\main\java;src\main\kotlin;src\release\java;src\release\kotlin"
+        resDirectories="src\main\res;src\release\res"
+        assetsDirectories="src\main\assets;src\release\assets"/>
+  </sourceProviders>
+  <testSourceProviders>
+  </testSourceProviders>
+  <testFixturesSourceProviders>
+  </testFixturesSourceProviders>
+  <artifact
+      classOutputs="C:\Users\dat90\OneDrive\Desktop\VS CODE\Slug-Swole\build\desktop_webview_auth\intermediates\javac\release\classes;C:\Users\dat90\OneDrive\Desktop\VS CODE\Slug-Swole\build\desktop_webview_auth\tmp\kotlin-classes\release;C:\Users\dat90\OneDrive\Desktop\VS CODE\Slug-Swole\build\desktop_webview_auth\intermediates\compile_r_class_jar\release\R.jar"
+      type="MAIN"
+      applicationId="io.invertase.desktop_webview_auth"
+      generatedSourceFolders="C:\Users\dat90\OneDrive\Desktop\VS CODE\Slug-Swole\build\desktop_webview_auth\generated\ap_generated_sources\release\out"
+      generatedResourceFolders="C:\Users\dat90\OneDrive\Desktop\VS CODE\Slug-Swole\build\desktop_webview_auth\generated\res\resValues\release"
+      desugaredMethodsFiles="C:\Users\dat90\.gradle\caches\transforms-3\3720dde5a71fd4f973a7e1ea818c545f\transformed\D8BackportedDesugaredMethods.txt">
+  </artifact>
+</variant>

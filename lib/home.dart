@@ -41,76 +41,78 @@ class HomePageState extends State<HomePage> {
         throw UnimplementedError('no widget for $selectedIndex');
     }
 
-    return FutureBuilder(
-      future: data,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
-        }
-        if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
-        }
-        //If user is an admin, return the admin home page
-        if (snapshot.data) {
-          return LayoutBuilder(
-            builder: (context, constraints) {
-              return Scaffold(
-                appBar: AppBar(
-                  leading: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Image.asset("assets/fitSlug.png"),
-                  ),
-                  toolbarHeight: MediaQuery.sizeOf(context).height * 0.075,
-                  backgroundColor: Theme.of(context).colorScheme.primary,
-                  title: FittedBox(
-                    child: RichText(
-                      text: TextSpan(
-                        text: "SLUG",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.yellow),
-                        children: [
-                          TextSpan(
-                              text: "SWOLE",
-                              style: TextStyle(color: Colors.blue)),
-                        ],
-                      ),
-                    ),
-                  ),
-                  actions: [
-                    IconButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ProfileScreen(
-                                        appBar: AppBar(
-                                          title: const Text('User Profile'),
-                                        ),
-                                        actions: [
-                                          SignedOutAction((context) {
-                                            Navigator.of(context).pop();
-                                          })
-                                        ],
-                                      )));
-                        },
-                        icon: Icon(
-                          Icons.settings,
-                          color: Colors.white,
-                        ))
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Scaffold(
+          appBar: AppBar(
+            leading: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Image.asset("assets/fitSlug.png"),
+            ),
+            toolbarHeight: MediaQuery.sizeOf(context).height * 0.075,
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            title: FittedBox(
+              child: RichText(
+                text: TextSpan(
+                  text: "SLUG",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, color: Colors.yellow),
+                  children: [
+                    TextSpan(
+                        text: "SWOLE", style: TextStyle(color: Colors.blue)),
                   ],
-                  centerTitle: true,
                 ),
-                body: page,
-                bottomNavigationBar: BottomNavigationBar(
+              ),
+            ),
+            actions: [
+              IconButton(onPressed: () {setState(() {});}, icon: Icon(Icons.refresh, color: Colors.white,)),
+              IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ProfileScreen(
+                                  appBar: AppBar(
+                                    title: const Text('User Profile'),
+                                  ),
+                                  actions: [
+                                    SignedOutAction((context) {
+                                      Navigator.of(context).pop();
+                                    })
+                                  ],
+                                )));
+                  },
+                  icon: Icon(
+                    Icons.settings,
+                    color: Colors.white,
+                  ))
+            ],
+            centerTitle: true,
+          ),
+          body: page,
+          bottomNavigationBar: FutureBuilder(
+              future: data,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return SizedBox.shrink();
+                }
+                if (snapshot.hasError) {
+                  return SizedBox.shrink();
+                }
+                if (!snapshot.hasData || snapshot.data == null) {
+                  return SizedBox.shrink();
+                }
+                if(snapshot.data){
+                return BottomNavigationBar(
                   items: const [
                     BottomNavigationBarItem(
                       icon: Icon(Icons.bar_chart_outlined),
                       label: 'Home',
                     ),
                     /*BottomNavigationBarItem(
-                      icon: Icon(Icons.fitness_center),
-                      label: "Splits",
-                    ),*/
+                        icon: Icon(Icons.fitness_center),
+                        label: "Splits",
+                      ),*/
                     BottomNavigationBarItem(
                       icon: Icon(Icons.shield_outlined),
                       label: "counter",
@@ -118,73 +120,11 @@ class HomePageState extends State<HomePage> {
                   ],
                   currentIndex: selectedIndex,
                   onTap: newState,
-                ),
-              );
-            },
-          );
-        }
-        //otherwise, return the public facing home page
-        else {
-          return LayoutBuilder(builder: (context, constraints) {
-            return Scaffold(
-              appBar: AppBar(
-                leading: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Image.asset("assets/fitSlug.png"),
-                ),
-                toolbarHeight: MediaQuery.sizeOf(context).height * 0.075,
-                backgroundColor: Theme.of(context).colorScheme.primary,
-                title: RichText(
-                    text: TextSpan(
-                        text: "SLUG",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.yellow),
-                        children: [
-                      TextSpan(
-                          text: "SWOLE", style: TextStyle(color: Colors.blue)),
-                    ])),
-                centerTitle: true,
-                actions: [
-                  IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ProfileScreen(
-                                      appBar: AppBar(
-                                        title: const Text('User Profile'),
-                                      ),
-                                      actions: [
-                                        SignedOutAction((context) {
-                                          Navigator.of(context).pop();
-                                        })
-                                      ],
-                                    )));
-                      },
-                      icon: Icon(
-                        Icons.settings,
-                        color: Colors.white,
-                      ))
-                ],
-              ),
-              body: page,
-              /*bottomNavigationBar: BottomNavigationBar(
-                items: const [
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.bar_chart_outlined),
-                    label: 'Home',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.fitness_center),
-                    label: "Splits",
-                  ),
-                ],
-                currentIndex: selectedIndex,
-                onTap: newState,
-              ),*/
-            );
-          });
-        }
+                );
+                }
+               else {return SizedBox.shrink();} 
+              }),
+        );
       },
     );
   }

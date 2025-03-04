@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "io.invertase.desktop_webview_auth-merged_res-25:/drawable/notification_tile_bg.xml",
+        "source": "io.invertase.desktop_webview_auth-core-1.13.1-9:/drawable/notification_tile_bg.xml"
+    },
+    {
+        "merged": "io.invertase.desktop_webview_auth-merged_res-25:/drawable/notification_bg.xml",
+        "source": "io.invertase.desktop_webview_auth-core-1.13.1-9:/drawable/notification_bg.xml"
+    },
+    {
+        "merged": "io.invertase.desktop_webview_auth-merged_res-25:/drawable/notification_bg_low.xml",
+        "source": "io.invertase.desktop_webview_auth-core-1.13.1-9:/drawable/notification_bg_low.xml"
+    },
+    {
+        "merged": "io.invertase.desktop_webview_auth-merged_res-25:/drawable/notification_icon_background.xml",
+        "source": "io.invertase.desktop_webview_auth-core-1.13.1-9:/drawable/notification_icon_background.xml"
+    }
+]

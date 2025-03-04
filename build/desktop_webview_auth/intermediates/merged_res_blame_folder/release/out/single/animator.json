@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "io.invertase.desktop_webview_auth-merged_res-25:/animator/fragment_open_exit.xml",
+        "source": "io.invertase.desktop_webview_auth-fragment-1.7.1-2:/animator/fragment_open_exit.xml"
+    },
+    {
+        "merged": "io.invertase.desktop_webview_auth-merged_res-25:/animator/fragment_close_enter.xml",
+        "source": "io.invertase.desktop_webview_auth-fragment-1.7.1-2:/animator/fragment_close_enter.xml"
+    },
+    {
+        "merged": "io.invertase.desktop_webview_auth-merged_res-25:/animator/fragment_open_enter.xml",
+        "source": "io.invertase.desktop_webview_auth-fragment-1.7.1-2:/animator/fragment_open_enter.xml"
+    },
+    {
+        "merged": "io.invertase.desktop_webview_auth-merged_res-25:/animator/fragment_close_exit.xml",
+        "source": "io.invertase.desktop_webview_auth-fragment-1.7.1-2:/animator/fragment_close_exit.xml"
+    },
+    {
+        "merged": "io.invertase.desktop_webview_auth-merged_res-25:/animator/fragment_fade_exit.xml",
+        "source": "io.invertase.desktop_webview_auth-fragment-1.7.1-2:/animator/fragment_fade_exit.xml"
+    },
+    {
+        "merged": "io.invertase.desktop_webview_auth-merged_res-25:/animator/fragment_fade_enter.xml",
+        "source": "io.invertase.desktop_webview_auth-fragment-1.7.1-2:/animator/fragment_fade_enter.xml"
+    }
+]

@@ -14,11 +14,11 @@ import 'backend_services.dart';
 class DataPage extends StatelessWidget {
   var facilityData = getFacilityData("east_field_gym");
   var mostRecent = getMostRecent();
-  
+
   DataPage({super.key});
 
   String howManyPeople(int capacity) {
-    if (capacity > 120) {
+    if (capacity >= 150) {
       return "Full";
     } else if (capacity > 100) {
       return "Very Busy";
@@ -34,7 +34,7 @@ class DataPage extends StatelessWidget {
     final theme = Theme.of(context);
     final now = DateTime.now();
     String formattedDate = DateFormat.yMMMEd().format(now);
-    
+
     return LayoutBuilder(
       builder: (context, constraints) {
         return Scaffold(
@@ -52,7 +52,7 @@ class DataPage extends StatelessWidget {
                 Center(
                   child: Container(
                     padding: EdgeInsets.all(10),
-                    width: MediaQuery.sizeOf(context).width * 0.7,
+                    width: MediaQuery.sizeOf(context).width * 0.95,
                     height: MediaQuery.sizeOf(context).height * 0.2,
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -61,11 +61,13 @@ class DataPage extends StatelessWidget {
                     child: FutureBuilder(
                       future: mostRecent,
                       builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
                           return Center(child: CircularProgressIndicator());
                         }
                         if (snapshot.hasError) {
-                          return Center(child: Text('Error: ${snapshot.error}'));
+                          return Center(
+                              child: Text('Error: ${snapshot.error}'));
                         }
                         if (!snapshot.hasData || snapshot.data == null) {
                           return Center(child: Text('No data available'));
@@ -74,16 +76,38 @@ class DataPage extends StatelessWidget {
                             snapshot.data as Map<String, dynamic>;
                         int todayData = fullData["capacity"] is int
                             ? fullData["capacity"]
-                            : int.tryParse(fullData["capacity"].toString()) ?? 0;
+                            : int.tryParse(fullData["capacity"].toString()) ??
+                                0;
                         return Row(
                           children: [
                             Expanded(
                               child: Center(
                                 child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text(formattedDate),
-                                    Text("Capacity: ${howManyPeople(todayData)}"),
-                                    Text("$todayData / 150"),
+                                    Text(formattedDate,
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                        )),
+                                    RichText(
+                                        text: TextSpan(
+                                            text: "Capacity: ",
+                                            style: TextStyle(fontSize: 15, color: Colors.black),
+                                            children: [
+                                          TextSpan(
+                                            text: howManyPeople(todayData),
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold),
+                                          )
+                                        ])),
+                                    Text(
+                                      "$todayData / 150",
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -143,7 +167,7 @@ class DataPage extends StatelessWidget {
                 SizedBox(height: 20),
                 Container(
                   width: MediaQuery.sizeOf(context).width * 0.7,
-                  height: MediaQuery.sizeOf(context).height * 0.6,
+                  height: MediaQuery.sizeOf(context).height * 0.5,
                   padding: EdgeInsets.all(5),
                   margin: EdgeInsets.only(right: 10, left: 10),
                   decoration: BoxDecoration(
@@ -151,7 +175,7 @@ class DataPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: DefaultTabController(
-                    initialIndex: 0,
+                    initialIndex: DateTime.now().weekday - 1,
                     length: 7,
                     child: Scaffold(
                       appBar: AppBar(
@@ -171,8 +195,11 @@ class DataPage extends StatelessWidget {
                           unselectedLabelColor: Colors.grey,
                           indicatorSize: TabBarIndicatorSize.label,
                           indicator: UnderlineTabIndicator(
-                            borderSide: BorderSide(width: 3, color: Colors.black), // Thinner underline
-                            insets: EdgeInsets.symmetric(horizontal: 16), // Make it slightly shorter
+                            borderSide: BorderSide(
+                                width: 3,
+                                color: Colors.black), // Thinner underline
+                            insets: EdgeInsets.symmetric(
+                                horizontal: 16), // Make it slightly shorter
                           ),
                           tabs: [
                             Tab(text: "Mon"),
@@ -187,7 +214,7 @@ class DataPage extends StatelessWidget {
                       ),
                       body: TabBarView(
                         children: [
-                          WeekGraph(day: 'monday'), 
+                          WeekGraph(day: 'monday'),
                           WeekGraph(day: 'tuesday'),
                           WeekGraph(day: 'wednesday'),
                           WeekGraph(day: 'thursday'),
