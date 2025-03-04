@@ -3,7 +3,15 @@ import 'package:flutter/material.dart';
 import 'backend_services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-
+String numToTime(int num){
+  if (num < 12){
+    return "$num AM";
+  } else if (num == 12){
+    return "$num PM";
+  } else {
+    return "${num - 12} PM";
+  }
+}
 double calculateAverage(List<int> numbers){
   if (numbers.isEmpty){
     return 0.0;
@@ -151,7 +159,7 @@ class _WeeklyBarGraphState extends State<WeeklyBarGraph> {
                   fitInsideVertically: true,
                   getTooltipItem: (group, groupIndex, rod, rodIndex) {
                     return BarTooltipItem(
-                      'time:${group.x} cap:${rod.toY}',
+                      '${numToTime(group.x)}: ${rod.toY}',
                       TextStyle(color: const Color.fromARGB(255, 17, 14, 14), fontWeight: FontWeight.bold),
                     );
                   },

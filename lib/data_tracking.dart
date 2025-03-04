@@ -1,16 +1,26 @@
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'weekly_graph.dart';
 import 'package:intl/intl.dart';
+import 'weekly_bar_graph.dart';
 
 import 'backend_services.dart';
 
 // Page for graphs and capacity tracking
-class DataPage extends StatelessWidget {
-  var facilityData = getFacilityData("east_field_gym");
-  var mostRecent = getMostRecent();
+class DataPage extends StatefulWidget {
 
   DataPage({super.key});
+
+  @override
+  State<DataPage> createState() => _DataPageState();
+}
+
+class _DataPageState extends State<DataPage> {
+  var facilityData = getFacilityData("east_field_gym");
+  bool graphIndex = false;  
+  var mostRecent = getMostRecent();
+  
 
   String howManyPeople(int capacity) {
     if (capacity >= 150) {
@@ -174,14 +184,39 @@ class DataPage extends StatelessWidget {
                     length: 7,
                     child: Scaffold(
                       appBar: AppBar(
-                        title: Text(
-                          "Weekly Data",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        title: Builder(
+                          builder: (context) {
+                            if (graphIndex){
+                              return Text(
+                                "Weekly Data - Average ",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              );
+                            }
+                            else{
+                            return Text(
+                              "Weekly Data - Total",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            );
+                            }
+                          }
                         ),
-                        centerTitle: true,
+                        actions: [
+                          Switch(
+                            value: graphIndex, 
+                            onChanged: (bool newValue) {
+                              setState(() {
+                                graphIndex = newValue;
+                              });
+                            }
+                            ),
+                        ],
+                        centerTitle: false,
                         bottom: TabBar(
                           tabAlignment: TabAlignment.start,
                           isScrollable: true,
@@ -209,13 +244,63 @@ class DataPage extends StatelessWidget {
                       ),
                       body: TabBarView(
                         children: [
-                          WeekGraph(day: 'monday'),
-                          WeekGraph(day: 'tuesday'),
-                          WeekGraph(day: 'wednesday'),
-                          WeekGraph(day: 'thursday'),
-                          WeekGraph(day: 'friday'),
-                          WeekGraph(day: 'saturday'),
-                          WeekGraph(day: 'sunday'),
+                          Builder(builder: (context){
+                            if(graphIndex){
+                              return WeeklyBarGraph(day: 'monday');
+                            }
+                            else{
+                              return WeekGraph(day: 'monday');
+                            }
+                          }),
+                          Builder(builder: (context){
+                            if(graphIndex){
+                              return WeeklyBarGraph(day: 'tuesday');
+                            }
+                            else{
+                              return WeekGraph(day: 'tuesday');
+                            }
+                          }),
+                          Builder(builder: (context){
+                            if(graphIndex){
+                              return WeeklyBarGraph(day: 'wednesday');
+                            }
+                            else{
+                              return WeekGraph(day: 'wednesday');
+                            }
+                          }),
+                          Builder(builder: (context){
+                            if(graphIndex){
+                              return WeeklyBarGraph(day: 'thursday');
+                            }
+                            else{
+                              return WeekGraph(day: 'thursday');
+                            }
+                          }),
+                          Builder(builder: (context){
+                            if(graphIndex){
+                              return WeeklyBarGraph(day: 'friday');
+                            }
+                            else{
+                              return WeekGraph(day: 'friday');
+                            }
+                          }),
+                          Builder(builder: (context){
+                            if(graphIndex){
+                              return WeeklyBarGraph(day: 'saturday');
+                            }
+                            else{
+                              return WeekGraph(day: 'saturday');
+                            }
+                          }),
+                          Builder(builder: (context){
+                            if(graphIndex){
+                              return WeeklyBarGraph(day: 'sunday');
+                            }
+                            else{
+                              return WeekGraph(day: 'sunday');
+                            }
+                          }),
+                          
                         ],
                       ),
                     ),
@@ -230,3 +315,4 @@ class DataPage extends StatelessWidget {
     );
   }
 }
+

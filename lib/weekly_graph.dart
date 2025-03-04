@@ -3,20 +3,8 @@ import 'package:flutter/material.dart';
 import 'backend_services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-
-double calculateAverage(List<int> numbers){
-  if (numbers.isEmpty){
-    return 0.0;
-  }
-  double sum = 0;
-  for (int number in numbers){
-    sum += number;
-  }
-  return (sum / numbers.length).roundToDouble();
-}
-
-List<int> getHours(String day){
-  switch (day){
+List<int> getHours(String day) {
+  switch (day) {
     case ('monday'):
       return [6, 24];
     case ('tuesday'):
@@ -35,7 +23,6 @@ List<int> getHours(String day){
       throw ArgumentError("$day is not one of the days of the week");
   }
 }
-
 
 class WeekGraph extends StatefulWidget {
   final String day;
@@ -66,42 +53,60 @@ class _WeekGraphState extends State<WeekGraph> {
           }
           var data = snapshot.data as List<dynamic>;
           List<FlSpot> chartData = [];
-          Map<int,List<int>> hourData = {};
+          Map<double, int> hourData = {};
           for (var item in data) {
-            var cap = item['capacity'];  // Get the capacity
+            var cap = item['capacity']; // Get the capacity
             if (cap is String) {
-              cap = int.parse(cap);  // Convert it to int if it's a string
+              cap = int.parse(cap); // Convert it to int if it's a string
             } else if (cap is! int) {
               print("Warning: Invalid data type for capacity");
-              continue;  // Skip this iteration if the capacity is neither int nor string
+              continue; // Skip this iteration if the capacity is neither int nor string
             }
             var timestamp = item['timestamp'];
             if (timestamp != null && timestamp is Timestamp) {
               DateTime dateValues = timestamp.toDate();
-              hourData.putIfAbsent(dateValues.hour, () => []).add(cap); // creates new key in hourData hashmap if it doesn't exist. appends new value to current list if key does exist
+              hourData[dateValues.hour + (dateValues.minute / 100)] =
+                  cap; // creates new key in hourData hashmap if it doesn't exist. appends new value to current list if key does exist
             } else {
               // Handle the case when timestamp is missing or invalid
               print("Warning: Invalid timestamp or missing timestamp in data");
             }
           }
           hourData.forEach((key, value) {
-            FlSpot dataPoint = FlSpot(key.toDouble(), calculateAverage(value));
+            FlSpot dataPoint = FlSpot(key.toDouble(), value.toDouble());
             chartData.add(dataPoint);
           });
-          List<int> operationalHours = getHours(widget.day); // first index is opening, second index is closing
+          List<int> operationalHours = getHours(
+              widget.day); // first index is opening, second index is closing
           return LineChart(
             LineChartData(
               maxY: 150,
               minY: 0,
               maxX: operationalHours[1].toDouble(),
               minX: operationalHours[0].toDouble(),
-              lineTouchData: LineTouchData(enabled: false),
+              lineTouchData: LineTouchData(
+                enabled: true,
+                touchTooltipData: LineTouchTooltipData(
+                  fitInsideHorizontally: true,
+                  fitInsideVertically: true,
+                ),
+                touchCallback:
+                    (FlTouchEvent event, LineTouchResponse? touchResponse) {
+                  if (!event.isInterestedForInteractions ||
+                      touchResponse == null ||
+                      touchResponse.lineBarSpots == null) {
+                    return;
+                  }
+                  
+                },
+                handleBuiltInTouches: true,
+              ),
               borderData: FlBorderData(show: false),
               lineBarsData: [
                 LineChartBarData(
                   dotData: FlDotData(show: false),
                   spots: chartData,
-                  isCurved: true,
+                  isCurved: false,
                   barWidth: 4,
                   color: Colors.black,
                   isStrokeCapRound: true,
@@ -113,6 +118,27 @@ class _WeekGraphState extends State<WeekGraph> {
                 bottomTitles: AxisTitles(
                   sideTitles: SideTitles(
                     showTitles: true,
+                    getTitlesWidget: (double value, TitleMeta meta) {
+                      // Mapping values to clock times
+                      switch (value.toInt()) {
+                        case 6:
+                          return Text('6 AM');
+                        case 9:
+                          return Text('9 AM');
+                        case 12:
+                          return Text('12 PM');
+                        case 15:
+                          return Text('3 PM');
+                        case 18:
+                          return Text('6 PM');
+                        case 21:
+                          return Text('9 PM');
+                        case 24:
+                          return Text('12 AM');
+                        default:
+                          return Text('');
+                      }
+                    },
                     reservedSize: 25,
                     interval: 2,
                     maxIncluded: true,
@@ -142,3 +168,4 @@ class _WeekGraphState extends State<WeekGraph> {
     );
   }
 }
+
