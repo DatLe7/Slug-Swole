@@ -1,10 +1,72 @@
-# iOS  
-ios/Pods/  
-ios/.generated/  
-ios/.symlinks/  
-ios/Flutter/  
+# Flutter & Dart related files
+.dart_tool/
+.packages
+.pub/
+build/
+android/.gradle/
+android/app/key.jks
 
-# Android  
-android/.gradle/  
-android/app/build/  
-android/.idea/  
+# iOS related files
+ios/Flutter/Flutter.podspec
+ios/.symlinks/
+ios/Pods/
+ios/.dart_tool/
+ios/Flutter/App.framework
+ios/Flutter/Flutter.framework
+ios/Flutter/Generated.xcconfig
+
+# Web related files
+web/.dart_tool/
+web/.firebase/
+
+# Windows related files
+windows/.dart_tool/
+windows/flutter/
+windows/CMakeCache.txt
+windows/CMakeFiles/
+windows/Makefile
+windows/Runner/Debug/
+windows/Runner/Release/
+windows/Runner/GeneratedPluginRegistrant.*
+windows/Runner/FlutterWindows.manifest
+
+# Linux related files
+linux/flutter/
+linux/CMakeFiles/
+linux/CMakeCache.txt
+linux/Makefile
+linux/Runner/
+
+# macOS related files
+macos/.dart_tool/
+macos/Flutter/ephemeral/
+macos/Flutter/Flutter.podspec
+macos/Flutter/Generated.xcconfig
+macos/Pods/
+macos/.symlinks/
+macos/build/
+
+# Android Studio / IntelliJ related
+.idea/
+*.iml
+
+# VS Code related
+.vscode/
+
+# Firebase & credentials (make sure to keep them secret)
+*.keys
+*.pem
+*.crt
+*.env
+firebase.json
+google-services.json
+android/app/google-services.json
+ios/Runner/GoogleService-Info.plist
+
+# Logs & Misc
+pubspec.lock
+*.log
+*.lock
+*.swp
+*.swo
+*.swn
