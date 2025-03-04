@@ -1,12 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'weekly_graph.dart';
-import 'counter.dart';
 import 'package:intl/intl.dart';
-import 'dart:math';
 
 import 'backend_services.dart';
 

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:slug_swole/backend_services.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
-import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';
 import 'data_tracking.dart';
-import 'splits.dart';
-import 'counter.dart';
+
 
 class HomePage extends StatefulWidget {
   @override
@@ -34,9 +32,6 @@ class HomePageState extends State<HomePage> {
         page = SplitsPage();
         break;
       */
-      case 1:
-        page = Counter();
-        break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
     }
