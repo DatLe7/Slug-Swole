@@ -85,6 +85,7 @@ class HomePageState extends State<HomePage> {
             centerTitle: true,
           ),
           body: page,
+          /*
           bottomNavigationBar: FutureBuilder(
               future: data,
               builder: (context, snapshot) {
@@ -119,6 +120,7 @@ class HomePageState extends State<HomePage> {
                 }
                else {return SizedBox.shrink();} 
               }),
+              */
         );
       },
     );
