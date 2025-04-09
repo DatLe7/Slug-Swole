@@ -51,9 +51,11 @@ class HomePageState extends State<HomePage> {
                 text: TextSpan(
                   text: "SLUG",
                   style: TextStyle(
+                      fontSize: 25,
                       fontWeight: FontWeight.bold, color: Colors.yellow),
                   children: [
                     TextSpan(
+                      
                         text: "SWOLE", style: TextStyle(color: Colors.blue)),
                   ],
                 ),

@@ -1,10 +1,12 @@
 
+import 'dart:ffi';
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'weekly_graph.dart';
 import 'package:intl/intl.dart';
 import 'weekly_bar_graph.dart';
-
+import 'package:auto_size_text/auto_size_text.dart';
 import 'backend_services.dart';
 
 // Page for graphs and capacity tracking
@@ -19,23 +21,13 @@ class DataPage extends StatefulWidget {
 class _DataPageState extends State<DataPage> {
   var facilityData = getFacilityData("east_field_gym");
   bool graphIndex = false;  
-  var mostRecent = getMostRecent();
   
 
-  String howManyPeople(int capacity) {
-    if (capacity >= 150) {
-      return "Full";
-    } else if (capacity > 100) {
-      return "Very Busy";
-    } else if (capacity > 60) {
-      return "Busy";
-    } else {
-      return "Not Busy";
-    }
-  }
+
 
   @override
   Widget build(BuildContext context) {
+    var mostRecent = getMostRecent();
     final theme = Theme.of(context);
     final now = DateTime.now();
     String formattedDate = DateFormat.yMMMEd().format(now);
@@ -54,11 +46,11 @@ class _DataPageState extends State<DataPage> {
             child: ListView(
               children: [
                 SizedBox(height: 20),
-                Center(
+                Center( // Daily Capacity
                   child: Container(
-                    padding: EdgeInsets.all(10),
+                    padding: EdgeInsets.all(20),
                     width: MediaQuery.sizeOf(context).width * 0.95,
-                    height: MediaQuery.sizeOf(context).height * 0.2,
+                    //height: MediaQuery.sizeOf(context).height * 0.3,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10),
@@ -79,87 +71,90 @@ class _DataPageState extends State<DataPage> {
                         }
                         Map<String, dynamic> fullData =
                             snapshot.data as Map<String, dynamic>;
+                        String lastUpdated = formatTimestamp(fullData["timestamp"]);
                         int todayData = fullData["capacity"] is int
                             ? fullData["capacity"]
                             : int.tryParse(fullData["capacity"].toString()) ??
                                 0;
                         return Row(
                           children: [
-                            Expanded(
-                              child: Center(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(formattedDate,
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                        )),
-                                    RichText(
-                                        text: TextSpan(
-                                            text: "Capacity: ",
-                                            style: TextStyle(fontSize: 15, color: Colors.black),
-                                            children: [
-                                          TextSpan(
-                                            text: howManyPeople(todayData),
-                                            style: TextStyle(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold),
-                                          )
-                                        ])),
-                                    Text(
-                                      "$todayData / 150",
+                            Container(
+                              //padding: EdgeInsets.only(left:10),
+                              width: MediaQuery.sizeOf(context).width * 0.5,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  /*Text(formattedDate,
                                       style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                ),
+                                        fontSize: 15,
+                                      )),*/
+                                  Text("Last updated $lastUpdated", style: TextStyle(fontSize: 12),),
+                                  RichText(
+                                      
+                                      text: TextSpan(
+                                          text: "Capacity: ",
+                                          style: TextStyle(fontSize: 25, color: Colors.black),
+                                          children: [
+                                        TextSpan(
+                                          text: "$todayData",
+                                          style: TextStyle(
+                                              fontSize: 25,
+                                              //fontWeight: FontWeight.bold
+                                              ),
+                                        )
+                                      ])),
+                                  Text(howManyPeople(todayData)
+                                    ,
+                                    style: TextStyle(
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  SizedBox(height: 10,),
+                                  AutoSizeText(howManyPeopleFlavortext(todayData),)
+                                  
+                                ],
                               ),
                             ),
-                            Expanded(
-                              child: Center(
-                                child: AspectRatio(
-                                  aspectRatio: 1,
-                                  child: PieChart(
-                                    PieChartData(
-                                      sections: [
-                                        PieChartSectionData(
-                                          value: todayData.toDouble(),
-                                          title: todayData.toString(),
-                                          color: Colors.red,
-                                          titleStyle: TextStyle(
-                                            fontSize: 15,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                            shadows: [
-                                              Shadow(
-                                                  color: Colors.black,
-                                                  blurRadius: 2)
-                                            ],
-                                          ),
-                                        ),
-                                        PieChartSectionData(
-                                          value: (150 - todayData.toDouble()),
-                                          title: (150 - todayData).toString(),
-                                          color: Colors.grey,
-                                          titleStyle: TextStyle(
-                                            fontSize: 15,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                            shadows: [
-                                              Shadow(
-                                                  color: Colors.black,
-                                                  blurRadius: 2)
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                      sectionsSpace: 3,
-                                      centerSpaceRadius: 5.0,
-                                      pieTouchData: PieTouchData(enabled: true),
+                            SizedBox(
+                              width: MediaQuery.sizeOf(context).width * .35,
+                              height: 100,
+                              child: PieChart(
+                                PieChartData(
+                                  sections: [
+                                    PieChartSectionData(
+                                      value: todayData.toDouble(),
+                                      title: todayData.toString(),
+                                      color: Colors.red,
+                                      titleStyle: TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        shadows: [
+                                          Shadow(
+                                              color: Colors.black,
+                                              blurRadius: 2)
+                                        ],
+                                      ),
                                     ),
-                                  ),
+                                    PieChartSectionData(
+                                      value: (150 - todayData.toDouble()),
+                                      title: (150 - todayData).toString(),
+                                      color: Colors.grey,
+                                      titleStyle: TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        shadows: [
+                                          Shadow(
+                                              color: Colors.black,
+                                              blurRadius: 2)
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                  sectionsSpace: 3,
+                                  centerSpaceRadius: 20.0,
+                                  pieTouchData: PieTouchData(enabled: true),
                                 ),
                               ),
                             ),
@@ -170,7 +165,7 @@ class _DataPageState extends State<DataPage> {
                   ),
                 ),
                 SizedBox(height: 20),
-                Container(
+                Container( // Weekly Graphs
                   width: MediaQuery.sizeOf(context).width * 0.7,
                   height: MediaQuery.sizeOf(context).height * 0.5,
                   padding: EdgeInsets.all(5),
@@ -316,3 +311,31 @@ class _DataPageState extends State<DataPage> {
   }
 }
 
+String formatTimestamp(timestamp) {
+  var format = new DateFormat('MMM d @ h:mm a'); // <- use skeleton here
+  return format.format(timestamp.toDate());
+}
+
+String howManyPeople(int capacity) {
+  if (capacity >= 150) {
+    return "Full";
+  } else if (capacity > 100) {
+    return "Very Busy";
+  } else if (capacity > 60) {
+    return "Busy";
+  } else {
+    return "Not Busy";
+  }
+}
+
+String howManyPeopleFlavortext(int capacity) {
+    if (capacity >= 150) {
+    return "Expect a sizeable line to enter gym, as well as longer wait times for all machines";
+  } else if (capacity > 120) {
+    return "Expect wait times for more machines like Leg/Bicep/Hamstring curl, as well as Benches and Racks";
+  } else if (capacity > 85) {
+    return "Expect  wait times for some machines like Lat Pulldown and Chest Flys";
+  } else {
+    return "Expect no/little wait times for most machines and freeweights ";
+  }
+}

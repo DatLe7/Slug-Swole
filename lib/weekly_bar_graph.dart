@@ -142,13 +142,24 @@ class _WeeklyBarGraphState extends State<WeeklyBarGraph> {
                     sideTitles: SideTitles(
                         showTitles: true,
                         reservedSize: 35,
-                        getTitlesWidget: (double value, TitleMeta meta) {
-                            if (value.toInt() % 2 == 0) {
-                                return Text(value.toInt().toString());
-                            } else {
-                                return SizedBox(); // Hide label
-                            }
-                        }
+                       getTitlesWidget: (double value, TitleMeta meta) {
+                      // Mapping values to clock times
+                      switch (value.toInt()) {
+                        case 6:
+                          return Text('6 AM');
+
+                        case 12:
+                          return Text('12 PM');
+
+                        case 18:
+                          return Text('6 PM');
+
+                        case 24:
+                          return Text('12 AM');
+                        default:
+                          return Text('');
+                      }
+                    },
                     ),
                 )
               ),
