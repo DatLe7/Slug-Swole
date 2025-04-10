@@ -307,7 +307,7 @@ String formatTimestamp(timestamp) {
 }
 
 String howManyPeople(int capacity) {
-  if (capacity >= 150) {
+  if (capacity >= 160) {
     return "Full";
   } else if (capacity > 100) {
     return "Very Busy";
