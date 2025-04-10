@@ -1,4 +1,3 @@
-
 import 'dart:ffi';
 
 import 'package:fl_chart/fl_chart.dart';
@@ -11,7 +10,6 @@ import 'backend_services.dart';
 
 // Page for graphs and capacity tracking
 class DataPage extends StatefulWidget {
-
   DataPage({super.key});
 
   @override
@@ -20,10 +18,7 @@ class DataPage extends StatefulWidget {
 
 class _DataPageState extends State<DataPage> {
   var facilityData = getFacilityData("east_field_gym");
-  bool graphIndex = false;  
-  
-
-
+  bool graphIndex = false;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +41,8 @@ class _DataPageState extends State<DataPage> {
             child: ListView(
               children: [
                 SizedBox(height: 20),
-                Center( // Daily Capacity
+                Center(
+                  // Daily Capacity
                   child: Container(
                     padding: EdgeInsets.all(20),
                     width: MediaQuery.sizeOf(context).width * 0.95,
@@ -71,7 +67,8 @@ class _DataPageState extends State<DataPage> {
                         }
                         Map<String, dynamic> fullData =
                             snapshot.data as Map<String, dynamic>;
-                        String lastUpdated = formatTimestamp(fullData["timestamp"]);
+                        String lastUpdated =
+                            formatTimestamp(fullData["timestamp"]);
                         int todayData = fullData["capacity"] is int
                             ? fullData["capacity"]
                             : int.tryParse(fullData["capacity"].toString()) ??
@@ -84,34 +81,37 @@ class _DataPageState extends State<DataPage> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  /*Text(formattedDate,
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                      )),*/
-                                  Text("Last updated $lastUpdated", style: TextStyle(fontSize: 12),),
+                                  Text(
+                                    "Last updated $lastUpdated",
+                                    style: TextStyle(fontSize: 12),
+                                  ),
                                   RichText(
-                                      
                                       text: TextSpan(
                                           text: "Capacity: ",
-                                          style: TextStyle(fontSize: 25, color: Colors.black),
+                                          style: TextStyle(
+                                              fontSize: 25,
+                                              color: Colors.black),
                                           children: [
                                         TextSpan(
                                           text: "$todayData",
                                           style: TextStyle(
-                                              fontSize: 25,
-                                              //fontWeight: FontWeight.bold
-                                              ),
+                                            fontSize: 25,
+                                            //fontWeight: FontWeight.bold
+                                          ),
                                         )
                                       ])),
-                                  Text(howManyPeople(todayData)
-                                    ,
+                                  Text(
+                                    howManyPeople(todayData),
                                     style: TextStyle(
                                         fontSize: 25,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  SizedBox(height: 10,),
-                                  AutoSizeText(howManyPeopleFlavortext(todayData),)
-                                  
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    howManyPeopleFlavortext(todayData),
+                                  )
                                 ],
                               ),
                             ),
@@ -120,11 +120,12 @@ class _DataPageState extends State<DataPage> {
                               height: 100,
                               child: PieChart(
                                 PieChartData(
+                                  startDegreeOffset: -90,
                                   sections: [
                                     PieChartSectionData(
                                       value: todayData.toDouble(),
                                       title: todayData.toString(),
-                                      color: Colors.red,
+                                      color: pieChartColorPicker(todayData),
                                       titleStyle: TextStyle(
                                         fontSize: 15,
                                         color: Colors.white,
@@ -138,7 +139,7 @@ class _DataPageState extends State<DataPage> {
                                     ),
                                     PieChartSectionData(
                                       value: (150 - todayData.toDouble()),
-                                      title: (150 - todayData).toString(),
+                                      title: "",//(150 - todayData).toString(),
                                       color: Colors.grey,
                                       titleStyle: TextStyle(
                                         fontSize: 15,
@@ -165,7 +166,8 @@ class _DataPageState extends State<DataPage> {
                   ),
                 ),
                 SizedBox(height: 20),
-                Container( // Weekly Graphs
+                Container(
+                  // Weekly Graphs
                   width: MediaQuery.sizeOf(context).width * 0.7,
                   height: MediaQuery.sizeOf(context).height * 0.5,
                   padding: EdgeInsets.all(5),
@@ -179,18 +181,16 @@ class _DataPageState extends State<DataPage> {
                     length: 7,
                     child: Scaffold(
                       appBar: AppBar(
-                        title: Builder(
-                          builder: (context) {
-                            if (graphIndex){
-                              return Text(
-                                "Weekly Data - Average ",
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              );
-                            }
-                            else{
+                        title: Builder(builder: (context) {
+                          if (graphIndex) {
+                            return Text(
+                              "Weekly Data - Average ",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            );
+                          } else {
                             return Text(
                               "Weekly Data - Total",
                               style: TextStyle(
@@ -198,18 +198,16 @@ class _DataPageState extends State<DataPage> {
                                 fontWeight: FontWeight.bold,
                               ),
                             );
-                            }
                           }
-                        ),
+                        }),
                         actions: [
                           Switch(
-                            value: graphIndex, 
-                            onChanged: (bool newValue) {
-                              setState(() {
-                                graphIndex = newValue;
-                              });
-                            }
-                            ),
+                              value: graphIndex,
+                              onChanged: (bool newValue) {
+                                setState(() {
+                                  graphIndex = newValue;
+                                });
+                              }),
                         ],
                         centerTitle: false,
                         bottom: TabBar(
@@ -239,63 +237,55 @@ class _DataPageState extends State<DataPage> {
                       ),
                       body: TabBarView(
                         children: [
-                          Builder(builder: (context){
-                            if(graphIndex){
+                          Builder(builder: (context) {
+                            if (graphIndex) {
                               return WeeklyBarGraph(day: 'monday');
-                            }
-                            else{
+                            } else {
                               return WeekGraph(day: 'monday');
                             }
                           }),
-                          Builder(builder: (context){
-                            if(graphIndex){
+                          Builder(builder: (context) {
+                            if (graphIndex) {
                               return WeeklyBarGraph(day: 'tuesday');
-                            }
-                            else{
+                            } else {
                               return WeekGraph(day: 'tuesday');
                             }
                           }),
-                          Builder(builder: (context){
-                            if(graphIndex){
+                          Builder(builder: (context) {
+                            if (graphIndex) {
                               return WeeklyBarGraph(day: 'wednesday');
-                            }
-                            else{
+                            } else {
                               return WeekGraph(day: 'wednesday');
                             }
                           }),
-                          Builder(builder: (context){
-                            if(graphIndex){
+                          Builder(builder: (context) {
+                            if (graphIndex) {
                               return WeeklyBarGraph(day: 'thursday');
-                            }
-                            else{
+                            } else {
                               return WeekGraph(day: 'thursday');
                             }
                           }),
-                          Builder(builder: (context){
-                            if(graphIndex){
+                          Builder(builder: (context) {
+                            if (graphIndex) {
                               return WeeklyBarGraph(day: 'friday');
-                            }
-                            else{
+                            } else {
                               return WeekGraph(day: 'friday');
                             }
                           }),
-                          Builder(builder: (context){
-                            if(graphIndex){
+                          Builder(builder: (context) {
+                            if (graphIndex) {
                               return WeeklyBarGraph(day: 'saturday');
-                            }
-                            else{
+                            } else {
                               return WeekGraph(day: 'saturday');
                             }
                           }),
-                          Builder(builder: (context){
-                            if(graphIndex){
+                          Builder(builder: (context) {
+                            if (graphIndex) {
                               return WeeklyBarGraph(day: 'sunday');
-                            }
-                            else{
+                            } else {
                               return WeekGraph(day: 'sunday');
                             }
                           }),
-                          
                         ],
                       ),
                     ),
@@ -329,7 +319,7 @@ String howManyPeople(int capacity) {
 }
 
 String howManyPeopleFlavortext(int capacity) {
-    if (capacity >= 150) {
+  if (capacity >= 150) {
     return "Expect a sizeable line to enter gym, as well as longer wait times for all machines";
   } else if (capacity > 120) {
     return "Expect wait times for more machines like Leg/Bicep/Hamstring curl, as well as Benches and Racks";
@@ -337,5 +327,16 @@ String howManyPeopleFlavortext(int capacity) {
     return "Expect  wait times for some machines like Lat Pulldown and Chest Flys";
   } else {
     return "Expect no/little wait times for most machines and freeweights ";
+  }
+}
+Color pieChartColorPicker(int capacity){
+    if (capacity >= 150) {
+    return Colors.redAccent;
+  } else if (capacity > 120) {
+    return Colors.orange;
+  } else if (capacity > 85) {
+    return Colors.yellow;
+  } else {
+    return Colors.lightGreen;
   }
 }
