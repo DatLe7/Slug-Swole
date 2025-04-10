@@ -51,7 +51,7 @@ class _DataPageState extends State<DataPage> {
                   // Daily Capacity
                   child: Container(
                     padding: EdgeInsets.all(20),
-                    width: MediaQuery.sizeOf(context).width * 0.95,
+                    width: screenWidth * 0.95,
                     //height: MediaQuery.sizeOf(context).height * 0.3,
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -83,25 +83,29 @@ class _DataPageState extends State<DataPage> {
                           children: [
                             Container(
                               //padding: EdgeInsets.only(left:10),
-                              width: MediaQuery.sizeOf(context).width * 0.4,
+                              width: screenWidth * 0.4,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     "Last updated $lastUpdated",
-                                    style: TextStyle(fontSize: 12),
+                                    style: TextStyle(fontSize: screenWidth*0.025),
+                                  ),
+                                  SizedBox(
+                                    height: screenHeight*0.004,
                                   ),
                                   RichText(
                                       text: TextSpan(
                                           text: "Capacity: ",
                                           style: TextStyle(
-                                              fontSize: 25,
-                                              color: Colors.black),
+                                              fontSize: screenWidth*0.065,
+                                              color: Colors.black
+                                          ),
                                           children: [
                                         TextSpan(
                                           text: "$todayData",
                                           style: TextStyle(
-                                            fontSize: 25,
+                                            fontSize: screenWidth*0.065,
                                             //fontWeight: FontWeight.bold
                                           ),
                                         )
@@ -109,14 +113,19 @@ class _DataPageState extends State<DataPage> {
                                   Text(
                                     howManyPeople(todayData),
                                     style: TextStyle(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.bold),
+                                        fontSize: screenWidth*0.07,
+                                        fontWeight: FontWeight.bold
+                                    ),
                                   ),
                                   SizedBox(
-                                    height: 10,
+                                    height: screenHeight*0.01,
                                   ),
                                   Text(
                                     howManyPeopleFlavortext(todayData),
+                                    style: TextStyle(
+                                              fontSize: screenWidth*0.04,
+                                              color: Colors.black
+                                    ),
                                   )
                                 ],
                               ),
@@ -331,7 +340,7 @@ String howManyPeopleFlavortext(int capacity) {
   } else if (capacity > 120) {
     return "Expect wait times for more machines like Leg/Bicep/Hamstring curl, as well as Benches and Racks";
   } else if (capacity > 85) {
-    return "Expect  wait times for some machines like Lat Pulldown and Chest Flys";
+    return "Expect wait times for some machines like Lat Pulldown and Chest Flys";
   } else {
     return "Expect no/little wait times for most machines and freeweights ";
   }
