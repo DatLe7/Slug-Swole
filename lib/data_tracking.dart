@@ -83,7 +83,7 @@ class _DataPageState extends State<DataPage> {
                           children: [
                             Container(
                               //padding: EdgeInsets.only(left:10),
-                              width: screenWidth * 0.55,
+                              width: screenWidth * 0.52,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
