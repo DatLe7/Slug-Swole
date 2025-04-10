@@ -83,7 +83,7 @@ class _DataPageState extends State<DataPage> {
                           children: [
                             Container(
                               //padding: EdgeInsets.only(left:10),
-                              width: screenWidth * 0.4,
+                              width: screenWidth * 0.55,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -130,7 +130,7 @@ class _DataPageState extends State<DataPage> {
                                 ],
                               ),
                             ),
-                            SizedBox(width: MediaQuery.of(context).size.width * 0.2),
+                            SizedBox(width: screenWidth * 0.1),
                             Container(
                               height: chartSize * 0.15,
                               width: chartSize * 0.15,
