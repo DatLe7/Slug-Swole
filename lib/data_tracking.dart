@@ -130,7 +130,7 @@ class _DataPageState extends State<DataPage> {
                                 ],
                               ),
                             ),
-                            SizedBox(width: screenWidth * 0.1),
+                            SizedBox(width: screenWidth * 0.13),
                             Container(
                               height: chartSize * 0.15,
                               width: chartSize * 0.15,
