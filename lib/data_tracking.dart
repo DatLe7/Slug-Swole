@@ -27,6 +27,12 @@ class _DataPageState extends State<DataPage> {
     final now = DateTime.now();
     String formattedDate = DateFormat.yMMMEd().format(now);
 
+    // This is for the sizing of the pie chart
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    
+    final chartSize = (screenWidth < screenHeight ? screenWidth : screenHeight) * 0.6; // Changes pie chart size depending if the device is more wide than 
+
     return LayoutBuilder(
       builder: (context, constraints) {
         return Scaffold(
@@ -77,7 +83,7 @@ class _DataPageState extends State<DataPage> {
                           children: [
                             Container(
                               //padding: EdgeInsets.only(left:10),
-                              width: MediaQuery.sizeOf(context).width * 0.5,
+                              width: MediaQuery.sizeOf(context).width * 0.4,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -115,11 +121,15 @@ class _DataPageState extends State<DataPage> {
                                 ],
                               ),
                             ),
-                            SizedBox(
-                              width: MediaQuery.sizeOf(context).width * .35,
-                              height: 100,
+                            SizedBox(width: MediaQuery.of(context).size.width * 0.2),
+                            Container(
+                              height: chartSize * 0.15,
+                              width: chartSize * 0.15,
                               child: PieChart(
                                 PieChartData(
+                                  sectionsSpace: chartSize * 0.002,
+                                  centerSpaceRadius: chartSize * 0.1,
+                                  pieTouchData: PieTouchData(enabled: true),
                                   startDegreeOffset: -90,
                                   sections: [
                                     PieChartSectionData(
@@ -153,9 +163,6 @@ class _DataPageState extends State<DataPage> {
                                       ),
                                     ),
                                   ],
-                                  sectionsSpace: 3,
-                                  centerSpaceRadius: 20.0,
-                                  pieTouchData: PieTouchData(enabled: true),
                                 ),
                               ),
                             ),
