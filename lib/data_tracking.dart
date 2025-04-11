@@ -107,7 +107,7 @@ class _DataPageState extends State<DataPage> {
                                               color: Colors.black),
                                           children: [
                                         TextSpan(
-                                          text: (closed ? "--" : todayData) as String,
+                                          text: (closed ? "--" : "$todayData") as String,
                                           style: TextStyle(
                                             fontSize: screenWidth * 0.065,
                                             //fontWeight: FontWeight.bold
