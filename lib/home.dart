@@ -21,7 +21,7 @@ class HomePageState extends State<HomePage> {
           appBar: AppBar(
             leading: Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Image.asset("assets/fitSlug.png"),
+              child: Image.asset("assets/slugswoleLogoNoBackground.png"),
             ),
             toolbarHeight: MediaQuery.sizeOf(context).height * 0.075,
             backgroundColor: Theme.of(context).colorScheme.primary,
@@ -31,7 +31,7 @@ class HomePageState extends State<HomePage> {
                   text: "SLUG",
                   style: TextStyle(
                       fontSize: 25,
-                      fontWeight: FontWeight.bold, color: Colors.yellow),
+                      fontWeight: FontWeight.bold, color: Colors.white),
                   children: [
                     TextSpan(
                       

@@ -363,7 +363,7 @@ Color pieChartColorPicker(int capacity) {
 bool isClosed() {
   DateTime now = DateTime.now();
   if (now.weekday >= 6 && (now.hour < 8 || now.hour > 20) ||
-      (now.hour < 6 || now.hour > 11)) {
+      (now.hour < 6 || now.hour > 23)) {
     return true;
   }
   return false;
