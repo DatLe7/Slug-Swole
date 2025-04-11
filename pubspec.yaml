@@ -36,7 +36,7 @@ flutter:
   assets:
   - assets/fitSlug.png
   - assets/slugswoleLogoNoBackground.png
-  - assets/slugswoleLogo.png
+  - assets/slugswoleLogo1.png
   - assets/slugswoleLogo2.png
 
 flutter_icons:
@@ -48,5 +48,5 @@ flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
   remove_alpha_ios: true
-  image_path: "assets/slugswoleLogo2.png"
+  image_path: "assets/slugswoleLogo1.png"
   min_sdk_android: 21 # android min sdk min:16, default 21
