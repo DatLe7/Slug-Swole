@@ -30,8 +30,10 @@ class _DataPageState extends State<DataPage> {
     // This is for the sizing of the pie chart
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    
-    final chartSize = (screenWidth < screenHeight ? screenWidth : screenHeight) * 0.6; // Changes pie chart size depending if the device is more wide than 
+    final chartSize = (screenWidth < screenHeight
+            ? screenWidth
+            : screenHeight) *
+        0.6; // Changes pie chart size depending if the device is more wide than
 
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -71,6 +73,7 @@ class _DataPageState extends State<DataPage> {
                         if (!snapshot.hasData || snapshot.data == null) {
                           return Center(child: Text('No data available'));
                         }
+                        bool closed = isClosed();
                         Map<String, dynamic> fullData =
                             snapshot.data as Map<String, dynamic>;
                         String lastUpdated =
@@ -79,6 +82,7 @@ class _DataPageState extends State<DataPage> {
                             ? fullData["capacity"]
                             : int.tryParse(fullData["capacity"].toString()) ??
                                 0;
+
                         return Row(
                           children: [
                             Container(
@@ -89,43 +93,41 @@ class _DataPageState extends State<DataPage> {
                                 children: [
                                   Text(
                                     "Last updated $lastUpdated",
-                                    style: TextStyle(fontSize: screenWidth*0.025),
+                                    style: TextStyle(
+                                        fontSize: screenWidth * 0.025),
                                   ),
                                   SizedBox(
-                                    height: screenHeight*0.004,
+                                    height: screenHeight * 0.004,
                                   ),
                                   RichText(
                                       text: TextSpan(
                                           text: "Capacity: ",
                                           style: TextStyle(
-                                              fontSize: screenWidth*0.065,
-                                              color: Colors.black
-                                          ),
+                                              fontSize: screenWidth * 0.065,
+                                              color: Colors.black),
                                           children: [
                                         TextSpan(
-                                          text: "$todayData",
+                                          text: (closed ? "--" : todayData) as String,
                                           style: TextStyle(
-                                            fontSize: screenWidth*0.065,
+                                            fontSize: screenWidth * 0.065,
                                             //fontWeight: FontWeight.bold
                                           ),
                                         )
                                       ])),
                                   Text(
-                                    howManyPeople(todayData),
+                                    closed ? "Closed":howManyPeople(todayData),
                                     style: TextStyle(
-                                        fontSize: screenWidth*0.07,
-                                        fontWeight: FontWeight.bold
-                                    ),
+                                        fontSize: screenWidth * 0.07,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                   SizedBox(
-                                    height: screenHeight*0.01,
+                                    height: screenHeight * 0.01,
                                   ),
                                   Text(
-                                    howManyPeopleFlavortext(todayData),
+                                    closed ? "The gym is open from 6AM to 11PM on weekdays and 8AM to 8PM on weekends." : howManyPeopleFlavortext(todayData),
                                     style: TextStyle(
-                                              fontSize: screenWidth*0.04,
-                                              color: Colors.black
-                                    ),
+                                        fontSize: screenWidth * 0.04,
+                                        color: Colors.black),
                                   )
                                 ],
                               ),
@@ -142,7 +144,7 @@ class _DataPageState extends State<DataPage> {
                                   startDegreeOffset: -90,
                                   sections: [
                                     PieChartSectionData(
-                                      value: todayData.toDouble(),
+                                      value: closed ? 0: todayData.toDouble(),
                                       title: todayData.toString(),
                                       color: pieChartColorPicker(todayData),
                                       titleStyle: TextStyle(
@@ -158,7 +160,7 @@ class _DataPageState extends State<DataPage> {
                                     ),
                                     PieChartSectionData(
                                       value: (150 - todayData.toDouble()),
-                                      title: "",//(150 - todayData).toString(),
+                                      title: "", //(150 - todayData).toString(),
                                       color: Colors.grey,
                                       titleStyle: TextStyle(
                                         fontSize: 15,
@@ -345,8 +347,9 @@ String howManyPeopleFlavortext(int capacity) {
     return "Expect no/little wait times for most machines and freeweights ";
   }
 }
-Color pieChartColorPicker(int capacity){
-    if (capacity >= 150) {
+
+Color pieChartColorPicker(int capacity) {
+  if (capacity >= 150) {
     return Colors.redAccent;
   } else if (capacity > 120) {
     return Colors.orange;
@@ -355,4 +358,13 @@ Color pieChartColorPicker(int capacity){
   } else {
     return Colors.lightGreen;
   }
+}
+
+bool isClosed() {
+  DateTime now = DateTime.now();
+  if (now.weekday >= 6 && (now.hour < 8 || now.hour > 20) ||
+      (now.hour < 6 || now.hour > 11)) {
+    return true;
+  }
+  return false;
 }
