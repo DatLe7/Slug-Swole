@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 //import 'package:slug_swole/backend_services.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'data_tracking.dart';
+import 'chatbot.dart'; // Import the ChatScreen
 
 
 class HomePage extends StatefulWidget {
@@ -66,6 +67,16 @@ class HomePageState extends State<HomePage> {
             centerTitle: true,
           ),
           body: DataPage(),
+          floatingActionButton: FloatingActionButton(//button to direct to the chatbot screen. can adjust loco and icon.
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ChatScreen()),
+              );
+            },
+            backgroundColor: Colors.red, // Set the button color to red
+            child: const Icon(Icons.chat, color: Colors.white), // Add a chat icon
+          ), //floatingaction button end here
 
         );
       },
