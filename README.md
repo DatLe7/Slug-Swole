@@ -1,3 +1,3 @@
-# slug_swole
+# Slug_Swole
 
-A new Flutter project.
+Gym Tracking App for UCSC students that tracks occupancy of the UCSC Gym 
