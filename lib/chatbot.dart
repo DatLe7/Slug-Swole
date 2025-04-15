@@ -68,7 +68,7 @@ class ChatScreenState extends State<ChatScreen> {
           "Chat with a Bot!", // Add the text here
           style: TextStyle(color: Colors.white, fontSize: 18), // Optional styling
         ),
-        backgroundColor: Colors.red, // Optional: Set the AppBar color to match the theme
+        backgroundColor: Colors.blue, // Optional: Set the AppBar color to match the theme
         elevation: 0, // Optional: Remove shadow for a flat AppBar
       ),
       body: Container(

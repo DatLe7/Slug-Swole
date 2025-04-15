@@ -74,7 +74,7 @@ class HomePageState extends State<HomePage> {
                 MaterialPageRoute(builder: (context) => const ChatScreen()),
               );
             },
-            backgroundColor: Colors.red, // Set the button color to red
+            backgroundColor: Colors.blue, // Set the button color to red
             child: const Icon(Icons.chat, color: Colors.white), // Add a chat icon
           ), //floatingaction button end here
 
