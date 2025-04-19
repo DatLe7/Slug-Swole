@@ -98,13 +98,13 @@ class ChatScreenState extends State<ChatScreen> {
           tooltip: 'Close Chat',
         ),
         title: const Text(
-          "Chat with a Bot!", // Add the text here
+          "SlugBot!", // Add the text here
           style:
-              TextStyle(color: Colors.white, fontSize: 18), // Optional styling
+              TextStyle(color: Colors.white, fontSize: 30), // Optional styling
         ),
         backgroundColor:
-            Colors.blue, // Optional: Set the AppBar color to match the theme
-        elevation: 0, // Optional: Remove shadow for a flat AppBar
+            Theme.of(context).colorScheme.primary, 
+        elevation: 0,
       ),
       body: Container(
         decoration: const BoxDecoration(
