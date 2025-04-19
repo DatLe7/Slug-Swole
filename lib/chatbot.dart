@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:intl/intl.dart';
+import 'package:slug_swole/backend_services.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key}); // Add the key parameter
@@ -11,12 +13,36 @@ class ChatScreen extends StatefulWidget {
 
 class ChatScreenState extends State<ChatScreen> {
   final TextEditingController _userInput = TextEditingController();
-
+  static const promptMessage = "";
   static const apiKey = "AIzaSyCfztqK6EtTQpahbW1zFII1lm4TvjB2YNU";
 
   final model = GenerativeModel(model: 'gemini-2.0-flash', apiKey: apiKey);
-
+  String? _initialPrompt;
   final List<Message> _messages = [];
+
+  Future<void> _loadPromptData() async {
+    try {
+      final fullData = await getTwoWeeksAgo();
+      for (var item in fullData) {
+        final timestamp = item['timestamp'];
+        if (timestamp is Timestamp) {
+          item['timestamp'] =
+              timestamp.toDate().toString(); 
+        }
+      }
+      final formattedPrompt = fullData.map((e)=> "at ${e["timestamp"]} capacity was ${e["capacity"]}").join("\n");
+      _initialPrompt = formattedPrompt;
+    } catch (e) {
+      print("Error loading data: $e");
+      _initialPrompt = ""; 
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPromptData();
+  }
 
   @override
   void dispose() {
@@ -38,18 +64,22 @@ class ChatScreenState extends State<ChatScreen> {
 
   void _addUserMessage(String message) {
     setState(() {
-      _messages.add(Message(isUser: true, message: message, date: DateTime.now()));
+      _messages
+          .add(Message(isUser: true, message: message, date: DateTime.now()));
     });
   }
 
   void _addBotMessage(String message) {
     setState(() {
-      _messages.add(Message(isUser: false, message: message, date: DateTime.now()));
+      _messages
+          .add(Message(isUser: false, message: message, date: DateTime.now()));
     });
   }
 
   Future<GenerateContentResponse> _generateBotResponse(String message) {
-    final content = [Content.text(message)];
+    print(_initialPrompt);
+    final fullPrompt = "You are an AI assistant for our gym app, SlugSwole. This app tracks the UCSC gym’s capacity. You are going to receive two parts of this prompt. The first is the capacity of the gym for the last two weeks. The data is as follows:$_initialPrompt. The second part is the user’s prompt for you. Respond to this prompt referencing the data if needed. DO NOT LIE, DO NOT MAKE UP DATA, ONLY USE DATA WE GIVE YOU IF APPLICABLE. The user’s prompt is as follows: $message";
+    final content = [Content.text(fullPrompt)];
     return model.generateContent(content);
   }
 
@@ -58,17 +88,20 @@ class ChatScreenState extends State<ChatScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.close, color: Colors.white), // Circular "X" icon
+          icon:
+              const Icon(Icons.close, color: Colors.white), // Circular "X" icon
           onPressed: () {
-          Navigator.pop(context); // Exit back to the homepage
-            },
+            Navigator.pop(context); // Exit back to the homepage
+          },
           tooltip: 'Close Chat',
         ),
         title: const Text(
           "Chat with a Bot!", // Add the text here
-          style: TextStyle(color: Colors.white, fontSize: 18), // Optional styling
+          style:
+              TextStyle(color: Colors.white, fontSize: 18), // Optional styling
         ),
-        backgroundColor: Colors.blue, // Optional: Set the AppBar color to match the theme
+        backgroundColor:
+            Colors.blue, // Optional: Set the AppBar color to match the theme
         elevation: 0, // Optional: Remove shadow for a flat AppBar
       ),
       body: Container(
@@ -181,11 +214,13 @@ class Messages extends StatelessWidget {
         children: [
           Text(
             message,
-            style: TextStyle(fontSize: 16, color: isUser ? Colors.white : Colors.black),
+            style: TextStyle(
+                fontSize: 16, color: isUser ? Colors.white : Colors.black),
           ),
           Text(
             date,
-            style: TextStyle(fontSize: 10, color: isUser ? Colors.white : Colors.black),
+            style: TextStyle(
+                fontSize: 10, color: isUser ? Colors.white : Colors.black),
           ),
         ],
       ),

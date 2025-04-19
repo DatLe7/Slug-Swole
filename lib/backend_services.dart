@@ -126,3 +126,28 @@ getDayOfWeek(String day) async {
   }
 }
 
+getTwoWeeksAgo() async{
+  DateTime now = DateTime.now();
+  Timestamp begin = Timestamp.fromDate(now.subtract(const Duration(days: 14)));
+  Timestamp end = Timestamp.fromDate(now);
+  //Why do begin and end have an extra 8 hours added to them? To sum up, there was some weird error with the Timestamp trying to convert
+  //the timestamp to UTC, despite already being in UTC? Therefore, I had to add an extra 8 hrs to the query hours in order for it not to query
+  //the previous day from 16:00:00:000 to the correct day @ 15:59:59:999
+  //This may cause potential issues if a user were to leave California, but lowkey that's not my problem. 
+  QuerySnapshot docs = await FirebaseFirestore.instance
+      .collection('weekly_capacity_data')
+      .where('timestamp', isGreaterThanOrEqualTo: begin)
+      .where('timestamp', isLessThanOrEqualTo: end)
+      .orderBy('timestamp')
+      .get();
+  if (docs.docs.isNotEmpty) {
+    var data = [];
+    for(var doc in docs.docs){
+      data.add(doc.data() as Map<String,dynamic>);
+    }
+    return data;
+  } else {
+    return <Map<String, dynamic>>[];
+  }
+} 
+
