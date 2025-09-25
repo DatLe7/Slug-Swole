@@ -67,6 +67,7 @@ class HomePageState extends State<HomePage> {
             centerTitle: true,
           ),
           body: DataPage(),
+          /*
           floatingActionButton: FloatingActionButton(//button to direct to the chatbot screen. can adjust loco and icon.
             onPressed: () {
               Navigator.push(
@@ -77,7 +78,7 @@ class HomePageState extends State<HomePage> {
             backgroundColor: Colors.blue, // Set the button color to red
             child: const Icon(Icons.chat, color: Colors.white), // Add a chat icon
           ), //floatingaction button end here
-
+          */
         );
       },
     );

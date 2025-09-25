@@ -14,7 +14,7 @@ class ChatScreen extends StatefulWidget {
 class ChatScreenState extends State<ChatScreen> {
   final TextEditingController _userInput = TextEditingController();
   static const promptMessage = "";
-  static const apiKey = "AIzaSyDe-M95M8HBlWL1wlPsf3T7OAZUfEOhO8M";
+  //static const apiKey = "AIzaSyDe-M95M8HBlWL1wlPsf3T7OAZUfEOhO8M";
 
   final model = GenerativeModel(model: 'gemini-2.0-flash', apiKey: apiKey);
   String? _initialPrompt;
@@ -78,7 +78,7 @@ class ChatScreenState extends State<ChatScreen> {
 
   Future<GenerateContentResponse> _generateBotResponse(String message) {
     final today = DateTime.now();
-    final fullPrompt = "You are an AI assistant for our gym app, SlugSwole. This app tracks the UCSC gym’s capacity. Today is $today . You are going to receive two parts of this prompt. The first is the capacity of the gym for the last two weeks The gym is open on weekdays from 6am-11pm, and on weekends from 8am - 8pm. The maximum capacity of the gym is 150. The data is as follows:$_initialPrompt. The second part is the user’s prompt for you. Respond to this prompt referencing the data if needed. DO NOT LIE, DO NOT MAKE UP DATA, ONLY USE DATA WE GIVE YOU IF APPLICABLE. If the prompt asks for the current capacity of the gym, respond with the most recent capacity as long as the data is from at least the same day. If there is applicable data, do not say that you do not have the current capacity. If a prompt asks you what the best time to go to the gym would be, consider any time where the capacity is not full as a reasonable time to go, with lesser capacity being more desirable. Also, refrain from using markdown formatting in your response. The user’s prompt is as follows: $message";
+    final fullPrompt = "You are an AI assistant for our gym app, SlugSwole. This app tracks the UCSC gym’s capacity. Today is $today . You are going to receive two parts of this prompt. The first is the capacity of the gym for the last two weeks The gym is open on weekdays from 6am-11pm, and on weekends from 8am - 8pm. The maximum capacity of the gym is 150. The data is as follows:$_initialPrompt. The second part is the user’s prompt for you. Respond to this prompt referencing the data if needed. DO NOT LIE, DO NOT MAKE UP DATA, ONLY USE DATA WE GIVE YOU IF APPLICABLE. If the prompt asks for the current capacity of the gym, respond with the most recent capacity as long as the data is from at least the same day. If there is applicable data, do not say that you do not have the current capacity. If a prompt asks you what the best time to go to the gym would be, consider any time where the capacity is not full as a reasonable time to go, with lesser capacity being more desirable. Also, refrain from using markdown formatting in your response. Make sure to print all times in an AM PM format. The user’s prompt is as follows: $message";
 ;
 
     final content = [Content.text(fullPrompt)];
