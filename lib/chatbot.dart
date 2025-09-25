@@ -14,7 +14,7 @@ class ChatScreen extends StatefulWidget {
 class ChatScreenState extends State<ChatScreen> {
   final TextEditingController _userInput = TextEditingController();
   static const promptMessage = "";
-  //static const apiKey = "AIzaSyDe-M95M8HBlWL1wlPsf3T7OAZUfEOhO8M";
+  //static const apiKey = ;
 
   final model = GenerativeModel(model: 'gemini-2.0-flash', apiKey: apiKey);
   String? _initialPrompt;
